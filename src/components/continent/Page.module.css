@@ -1,0 +1,20 @@
+.container {
+  width: 100%;
+  background-color: blue;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.selector {
+  height: 10vh;
+  width: 18%;
+  background-color: red;
+  border-radius: 10px 10px 0px 0px;
+  border-left: solid 2px black;
+  border-right: solid 2px black;
+  border-top: solid 2px black;
+
+  text-align: center;
+}

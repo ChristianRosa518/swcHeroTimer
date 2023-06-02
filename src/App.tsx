@@ -1,11 +1,10 @@
 import { useState } from "react";
+import Continents from "./components/continent/Continents";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <div>hi</div>
+      <Continents />
     </>
   );
 }
