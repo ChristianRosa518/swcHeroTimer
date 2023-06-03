@@ -10,7 +10,11 @@ interface heroArea {
   miniBosses: string[];
 }
 
-function Continents() {
+interface ContinentsInter {
+  url: string;
+}
+
+function Continents({ url }: ContinentsInter) {
   const [page, setPage] = React.useState<number>(0);
 
   const continents: heroArea[] = [
@@ -52,12 +56,11 @@ function Continents() {
 
   return (
     <div>
-      {page}
       <PageSelector setPage={setPage} continents={continents} />
       <div className={styles.container}>
         {continents.map((continent, index) => (
           <div key={continent.name}>
-            {page === index && <Continent continent={continent} />}
+            {page === index && <Continent continent={continent} url={url} />}
           </div>
         ))}
       </div>
@@ -92,24 +95,41 @@ function PageSelector({ setPage, continents }: pageSelectorInter) {
 
 interface continentInter {
   continent: heroArea;
+  url: string;
 }
 
-function Continent({ continent }: continentInter) {
-  const [days, hours, minutes, seconds] = useCountdown(
-    new Date(2023, 5, 3, 22, 30, 0, 0)
+function Continent({ continent, url }: continentInter) {
+  const [baphTime, setBaphTime] = React.useState<Date>(new Date());
+  const [mbTime, setMbTime] = React.useState<Date>(new Date());
+
+  const [daysMB, hoursMB, minutesMB, secondsMB] = useCountdown(
+    new Date(2023, 5, 3, 22, 30, 0, 0),
+    continent.name
   );
-  // 10:30 pm in 13h 17m
-  const timeZoneMinutesOffSet = new Date().getTimezoneOffset();
+  const [daysBAPH, hoursBAPH, minutesBAPH, secondsBAPH] = useCountdown(
+    new Date(2023, 5, 3, 22, 30, 0, 0),
+    continent.name
+  );
+  // months start at 0? why? weird. dumb. Everything else starts at set number. is it cause its array? has to be.
+
+  React.useEffect(() => {
+    //fetch baph and mb time
+    fetch(url + "/miniboss/getTimes");
+    console.log("hi");
+  }, []);
 
   return (
     <>
       <div>{new Date().getMonth()}</div>
       <div>{continent.name}</div>
       <div>
-        {continent.Baphomet} : {days}, {hours}, {minutes}, {seconds}
+        {continent.Baphomet} : {daysBAPH}, {hoursBAPH}, {minutesBAPH},
+        {secondsBAPH}
       </div>
       {continent.miniBosses.map((name) => (
-        <div key={name}>{name}</div>
+        <div key={name}>
+          {name} : {daysMB}, {hoursMB}, {minutesMB}, {secondsMB}
+        </div>
       ))}
       {}
     </>

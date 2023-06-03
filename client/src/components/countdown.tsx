@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useCountdown = (targetDate: Date) => {
+const useCountdown = (targetDate: Date, continent: string) => {
   const countDownDate = targetDate.getTime();
 
   const [countDown, setCountDown] = useState(
@@ -11,6 +11,11 @@ const useCountdown = (targetDate: Date) => {
     const interval = setInterval(() => {
       setCountDown(countDownDate - new Date().getTime());
     }, 1000);
+
+    if (countDownDate - new Date().getTime() <= 0) {
+      console.log("reset timer");
+      //update times with db call
+    }
 
     return () => clearInterval(interval);
   }, [countDownDate]);
