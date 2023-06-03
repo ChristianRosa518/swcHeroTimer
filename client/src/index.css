@@ -1,0 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Geologica&display=swap");
+:root {
+  --body-fonts: "Geologica", sans-serif;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* fonts */

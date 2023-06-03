@@ -1,3 +1,7 @@
+:root {
+  --body-fonts: "Geologica", sans-serif;
+}
+
 .container {
   width: 100%;
   background-color: blue;
@@ -17,4 +21,6 @@
   border-top: solid 2px black;
 
   text-align: center;
+  font-family: var(--body-fonts);
+  color: white;
 }

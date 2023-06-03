@@ -2,6 +2,8 @@ import React from "react";
 import styles from "./Continents.module.css";
 import page from "./Page.module.css";
 
+import { useCountdown } from "../countdown";
+
 interface heroArea {
   name: string;
   Baphomet: string;
@@ -24,8 +26,12 @@ function Continents() {
     },
     {
       name: "Tesca",
-      Baphomet: "hi",
-      miniBosses: [""],
+      Baphomet: "Conqueror of Flame Baphomet",
+      miniBosses: [
+        "Dark Panolpy Giant Sandworm",
+        "Pitchblack Scale Serpent",
+        "Illusion Minion",
+      ],
     },
     {
       name: "Ayah",
@@ -50,7 +56,9 @@ function Continents() {
       <PageSelector setPage={setPage} continents={continents} />
       <div className={styles.container}>
         {continents.map((continent, index) => (
-          <>{page === index && <Continent continent={continent} />}</>
+          <div key={continent.name}>
+            {page === index && <Continent continent={continent} />}
+          </div>
         ))}
       </div>
     </div>
@@ -87,12 +95,21 @@ interface continentInter {
 }
 
 function Continent({ continent }: continentInter) {
+  const [days, hours, minutes, seconds] = useCountdown(
+    new Date(2023, 5, 3, 22, 30, 0, 0)
+  );
+  // 10:30 pm in 13h 17m
+  const timeZoneMinutesOffSet = new Date().getTimezoneOffset();
+
   return (
     <>
+      <div>{new Date().getMonth()}</div>
       <div>{continent.name}</div>
-      <div>{continent.Baphomet}</div>
+      <div>
+        {continent.Baphomet} : {days}, {hours}, {minutes}, {seconds}
+      </div>
       {continent.miniBosses.map((name) => (
-        <div>{name}</div>
+        <div key={name}>{name}</div>
       ))}
       {}
     </>
