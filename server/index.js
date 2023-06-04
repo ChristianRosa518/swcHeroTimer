@@ -6,6 +6,7 @@ const miniboss = require("./routes/miniboss");
 
 const app = express();
 app.use(cors());
+app.use(express.json());
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server live on ${port}`));
@@ -25,9 +26,3 @@ mongoose
     console.log("Connected to Db");
   })
   .catch(console.error);
-
-app.post("/updateMiniBoss", (req, res) => {
-  const { hours } = req.body;
-  const newTime = 3 * 60 * 60 * 1000;
-  res.send({ newTimeTest: newTime });
-});

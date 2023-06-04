@@ -101,26 +101,51 @@ interface continentInter {
 function Continent({ continent, url }: continentInter) {
   const [baphTime, setBaphTime] = React.useState<Date>(new Date());
   const [mbTime, setMbTime] = React.useState<Date>(new Date());
-
   const [daysMB, hoursMB, minutesMB, secondsMB] = useCountdown(
-    new Date(2023, 5, 3, 22, 30, 0, 0),
-    continent.name
+    new Date(mbTime),
+    continent.name,
+    url
   );
   const [daysBAPH, hoursBAPH, minutesBAPH, secondsBAPH] = useCountdown(
-    new Date(2023, 5, 3, 22, 30, 0, 0),
-    continent.name
+    new Date(baphTime),
+    continent.name,
+    url
   );
-  // months start at 0? why? weird. dumb. Everything else starts at set number. is it cause its array? has to be.
 
   React.useEffect(() => {
     //fetch baph and mb time
-    fetch(url + "/miniboss/getTimes");
-    console.log("hi");
+    fetch(url + "/miniboss/getTimes")
+      .then((res) => res.json())
+      .then((data) => {
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].continent === continent.name) {
+            const newDate = new Date(
+              data[i].nextYear,
+              data[i].nextMonth,
+              data[i].nextDay,
+              // data[i].nextHour,
+              19,
+              data[i].nextMinute,
+              0,
+              0
+            );
+            setMbTime(newDate);
+          }
+        }
+      })
+      .catch((err) => {
+        console.error("Error: ", err);
+      });
   }, []);
+
+  // code as example to set new date.
+  const newDate = new Date(2023, 5, 3, 22, 30, 0, 0);
+  const newerDate = newDate.setHours(newDate.getHours() + 13);
+  const newerdater = newDate.setMinutes(newDate.getMinutes() + 20);
 
   return (
     <>
-      <div>{new Date().getMonth()}</div>
+      <div> seconds : {baphTime.getSeconds()}</div>
       <div>{continent.name}</div>
       <div>
         {continent.Baphomet} : {daysBAPH}, {hoursBAPH}, {minutesBAPH},

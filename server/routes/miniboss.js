@@ -9,24 +9,42 @@ router.get("/tester", (req, res) => {
   res.json({ newTimeTest: newTime });
 });
 
-router.post("/updateMiniBoss", (req, res) => {
-  const { hours } = req.body;
-  const newTime = 3 * 60 * 60 * 1000;
-  res.json({ newTimeTest: newTime });
+router.put("/updateMiniBoss", async (req, res) => {
+  const name = req.body.name;
+  const data = await miniBoss.findOne({ continent: name });
+  //22
+  const newDate = new Date(
+    data.nextYear,
+    data.nextMonth,
+    data.nextDay,
+    // data.nextHour,
+    19,
+    data.nextMinute,
+    0,
+    0
+  );
+
+  newDate.setHours(newDate.getHours() + 3);
+
+  res.send(newDate);
 });
 
-router.get("/getTimes", (req, res) => {
-  console.log("getting times for");
+router.get("/getTimes", async (req, res) => {
+  console.log("Times got");
+  const data = await miniBoss.find();
 
-  const [years, months, days, hours, minutes, seconds] = getReturnValues(date);
-  res.json({
-    year: years,
-    month: months,
-    day: days,
-    hours: hours,
-    minutes: minutes,
-    seconds: seconds,
-  });
+  res.send(data);
+  // console.log(date);
+
+  // const [years, months, days, hours, minutes, seconds] = getReturnValues(date);
+  // res.json({
+  //   year: years,
+  //   month: months,
+  //   day: days,
+  //   hours: hours,
+  //   minutes: minutes,
+  //   seconds: seconds,
+  // });
 });
 
 const getReturnValues = (countDown) => {
@@ -41,6 +59,11 @@ const getReturnValues = (countDown) => {
 
   return [years, months, days, hours, minutes, seconds];
 };
+
+router.put("/updateTime", async (req, res) => {
+  const name = await miniBoss.findOne(req.body.name);
+  console.log("hi");
+});
 
 router.post("/newMB", (req, res) => {
   console.log(req.body);
