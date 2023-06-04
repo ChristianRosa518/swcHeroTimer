@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       {serverURL}
-      <Continents url={serverURL} />
+      <Continents server={serverURL} />
     </>
   );
 }

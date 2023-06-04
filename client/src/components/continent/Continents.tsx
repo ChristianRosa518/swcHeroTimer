@@ -11,10 +11,10 @@ interface heroArea {
 }
 
 interface ContinentsInter {
-  url: string;
+  server: string;
 }
 
-function Continents({ url }: ContinentsInter) {
+function Continents({ server }: ContinentsInter) {
   const [page, setPage] = React.useState<number>(0);
 
   const continents: heroArea[] = [
@@ -72,7 +72,9 @@ function Continents({ url }: ContinentsInter) {
       <div className={styles.container}>
         {continents.map((continent, index) => (
           <div key={continent.name}>
-            {page === index && <Continent continent={continent} url={url} />}
+            {page === index && (
+              <Continent continent={continent} server={server} />
+            )}
           </div>
         ))}
       </div>
@@ -107,20 +109,21 @@ function PageSelector({ setPage, continents }: pageSelectorInter) {
 
 interface continentInter {
   continent: heroArea;
-  url: string;
+  server: string;
 }
 
-function Continent({ continent, url }: continentInter) {
+function Continent({ continent, server }: continentInter) {
   const [[daysMB, hoursMB, minutesMB, secondsMB], setCountDownDateMB]: any =
-    useCountdown(new Date(), continent.name, url, "miniBoss");
+    useCountdown(new Date(), continent.name, server, "miniBoss");
   const [
     [daysBAPH, hoursBAPH, minutesBAPH, secondsBAPH],
     setCountDownDateBaph,
-  ]: any = useCountdown(new Date(), continent.name, url, "baphomet");
+  ]: any = useCountdown(new Date(), continent.name, server, "baphomet");
 
   React.useEffect(() => {
     //fetch baph and mb time
-    fetch(url + "/miniboss/getTimes")
+    console.log(server + "/miniboss/getTimes");
+    fetch(server + "/miniboss/getTimes")
       .then((res) => res.json())
       .then((data) => {
         for (let i = 0; i < data.length; i++) {
