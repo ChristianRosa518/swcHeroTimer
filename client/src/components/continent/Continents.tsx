@@ -148,9 +148,6 @@ function Continent({ continent, server }: continentInter) {
             setCountDownDateBaph(new Date().getTime());
           }
         }
-      })
-      .catch((err) => {
-        console.error("Error: ", err);
       });
   }, []);
 
