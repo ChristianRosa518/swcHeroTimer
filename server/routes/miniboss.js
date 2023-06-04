@@ -2,13 +2,6 @@ const express = require("express");
 const router = express.Router();
 const miniBoss = require("../models/mini");
 
-//tester
-router.get("/tester", (req, res) => {
-  //   const { hours } = req.body;
-  const newTime = 3 * 60 * 60 * 1000;
-  res.json({ newTimeTest: newTime });
-});
-
 router.put("/updateMiniBoss", async (req, res) => {
   const name = req.body.name;
   const data = await miniBoss.findOne({ continent: name });
@@ -34,7 +27,6 @@ router.put("/updateMiniBoss", async (req, res) => {
 
   // update values
 
-  console.log(years, months, days, hours, minutes, seconds);
   data.nextYear = years;
   data.nextMonth = months;
   data.nextDay = days;
@@ -44,7 +36,7 @@ router.put("/updateMiniBoss", async (req, res) => {
   data.save();
   // console.log("updated", data);
 
-  console.log("MB Times Updated");
+  console.log(`${data.continent} Miniboss times updated`);
   res.json({
     years: years,
     months: months,
@@ -56,9 +48,7 @@ router.put("/updateMiniBoss", async (req, res) => {
 });
 
 router.get("/getTimes", async (req, res) => {
-  console.log("Times got");
   const data = await miniBoss.find();
-
   res.send(data);
 });
 
@@ -74,11 +64,6 @@ const getReturnValues = (countDown) => {
 
   return [years, months, days, hours, minutes, seconds];
 };
-
-router.put("/updateTime", async (req, res) => {
-  const name = await miniBoss.findOne(req.body.name);
-  console.log("hi");
-});
 
 router.post("/newMB", (req, res) => {
   console.log(req.body);

@@ -39,18 +39,30 @@ function Continents({ url }: ContinentsInter) {
     },
     {
       name: "Ayah",
-      Baphomet: "hi",
-      miniBosses: [""],
+      Baphomet: "Conqueror of Storm Baphomet",
+      miniBosses: [
+        "Brilliant Glory Trian",
+        "Light Wing Griffon",
+        "Crying Fiend Warbear",
+      ],
     },
     {
       name: "Flurence",
-      Baphomet: "hi",
-      miniBosses: [""],
+      Baphomet: "Conqueror of Cold Baphomet",
+      miniBosses: [
+        "Golden Mane Werewolf",
+        "Golden Crystal Grooming",
+        "Snow Mountain Master Yeti",
+      ],
     },
     {
       name: "Rukurangma",
-      Baphomet: "hi",
-      miniBosses: [""],
+      Baphomet: "Conqueror of Radiance Baphomet",
+      miniBosses: [
+        "Burning Crimson Shadow Walker",
+        "Red Heart Giant Rock Golem",
+        "Mighty Golden Horn Dupa",
+      ],
     },
   ];
 
@@ -125,15 +137,12 @@ function Continent({ continent, url }: continentInter) {
               0
             );
             setCountDownDateMB(newDate.getTime());
-            console.log(newDate.getTime() + "setting value");
           }
         }
       })
       .catch((err) => {
         console.error("Error: ", err);
       });
-    // setCountDownDateBaph(new Date());
-    // setCountDownDateMB(new Date());
   }, []);
 
   // code as example to set new date.
@@ -143,7 +152,10 @@ function Continent({ continent, url }: continentInter) {
 
   return (
     <>
-      <div> seconds : {baphTime.getSeconds()}</div>
+      <div>Times only work for US East Taor Server</div>
+      <div>
+        Developed by Chedic, join our clan KyoshiWarriors for more resources!
+      </div>
       <div>{continent.name}</div>
       <div>
         {continent.Baphomet} : {daysBAPH}, {hoursBAPH}, {minutesBAPH},

@@ -5,8 +5,6 @@ const useCountdown = (targetDate: Date, continent: string, url: string) => {
     targetDate.getTime()
   );
 
-  // const countDownDate = targetDate.getTime();
-  // promise<number>, number, bigint. just gonna use any here.
   const [newDate, setNewDate] = useState();
   const [countDown, setCountDown] = useState(
     countDownDate - new Date().getTime()
@@ -18,18 +16,15 @@ const useCountdown = (targetDate: Date, continent: string, url: string) => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [countDownDate]);
 
   useEffect(() => {
-    const interval2 = setInterval(() => {
-      const [days, hours, minutes, seconds] = getReturnValues(countDownDate);
-      console.log(days + hours + minutes + seconds + "current Time");
-      if (days + hours + minutes + seconds <= 0) {
-        updateMBTime();
-      }
-    }, 4000);
-    return () => clearInterval(interval2);
-  }, []);
+    const [days, hours, minutes, seconds] = getReturnValues(countDown);
+    console.log(days + hours + minutes + seconds);
+    if (days + hours + minutes + seconds <= -50) {
+      updateMBTime();
+    }
+  }, [countDown]);
 
   const updateMBTime = async () => {
     const data: any = await fetch(url + "/miniboss/updateMiniBoss", {
@@ -41,6 +36,7 @@ const useCountdown = (targetDate: Date, continent: string, url: string) => {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log("hi");
         const newDate = new Date(
           data.years,
           data.months,
@@ -49,8 +45,7 @@ const useCountdown = (targetDate: Date, continent: string, url: string) => {
           data.minutes,
           data.seconds
         );
-        console.log(newDate);
-        // setCountDownDate(newDate.getTime());
+        setCountDownDate(newDate.getTime());
       });
   };
 
