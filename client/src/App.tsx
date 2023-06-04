@@ -6,7 +6,6 @@ const serverURL = import.meta.env.VITE_SERVER_URL as string;
 function App() {
   return (
     <>
-      {serverURL}
       <Continents server={serverURL} />
     </>
   );
