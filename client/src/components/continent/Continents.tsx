@@ -127,7 +127,7 @@ function Continent({ continent, server }: continentInter) {
       method: "GET",
       mode: "no-cors",
       headers: {
-        "content-type": "application/json",
+        "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
       },
     })
