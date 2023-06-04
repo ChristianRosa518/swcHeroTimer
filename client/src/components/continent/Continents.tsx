@@ -122,7 +122,6 @@ function Continent({ continent, server }: continentInter) {
 
   React.useEffect(() => {
     //fetch baph and mb time
-    console.log(server + "/miniboss/getTimes");
     fetch(server + "/miniboss/getTimes", {
       method: "GET",
       headers: {
