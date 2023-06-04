@@ -125,10 +125,8 @@ function Continent({ continent, server }: continentInter) {
     console.log(server + "/miniboss/getTimes");
     fetch(server + "/miniboss/getTimes", {
       method: "GET",
-      mode: "no-cors",
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
       },
     })
       .then((res) => res.json())
