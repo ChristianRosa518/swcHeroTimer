@@ -123,7 +123,12 @@ function Continent({ continent, server }: continentInter) {
   React.useEffect(() => {
     //fetch baph and mb time
     console.log(server + "/miniboss/getTimes");
-    fetch(server + "/miniboss/getTimes")
+    fetch(server + "/miniboss/getTimes", {
+      mode: "cors",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         for (let i = 0; i < data.length; i++) {
