@@ -20,6 +20,7 @@ app.listen(port, () => console.log(`Server live on ${port}`));
 app.get("/", (req, res) => {
   res.json({ msg: "SWC Hero Timer Server Live" });
 });
+//trying to redeploy
 
 app.use("/miniboss", miniboss);
 
