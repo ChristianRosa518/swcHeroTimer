@@ -101,16 +101,12 @@ interface continentInter {
 function Continent({ continent, url }: continentInter) {
   const [baphTime, setBaphTime] = React.useState<Date>(new Date());
   const [mbTime, setMbTime] = React.useState<Date>(new Date());
-  const [daysMB, hoursMB, minutesMB, secondsMB] = useCountdown(
-    new Date(mbTime),
-    continent.name,
-    url
-  );
-  const [daysBAPH, hoursBAPH, minutesBAPH, secondsBAPH] = useCountdown(
-    new Date(baphTime),
-    continent.name,
-    url
-  );
+  const [[daysMB, hoursMB, minutesMB, secondsMB], setCountDownDateMB]: any =
+    useCountdown(new Date(mbTime), continent.name, url);
+  const [
+    [daysBAPH, hoursBAPH, minutesBAPH, secondsBAPH],
+    setCountDownDateBaph,
+  ]: any = useCountdown(new Date(baphTime), continent.name, url);
 
   React.useEffect(() => {
     //fetch baph and mb time
@@ -123,19 +119,21 @@ function Continent({ continent, url }: continentInter) {
               data[i].nextYear,
               data[i].nextMonth,
               data[i].nextDay,
-              // data[i].nextHour,
-              19,
+              data[i].nextHour,
               data[i].nextMinute,
               0,
               0
             );
-            setMbTime(newDate);
+            setCountDownDateMB(newDate.getTime());
+            console.log(newDate.getTime() + "setting value");
           }
         }
       })
       .catch((err) => {
         console.error("Error: ", err);
       });
+    // setCountDownDateBaph(new Date());
+    // setCountDownDateMB(new Date());
   }, []);
 
   // code as example to set new date.

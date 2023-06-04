@@ -7,21 +7,6 @@ const miniBossSchema = new Schema({
     require: true,
     unique: true,
   },
-  currentYear: {
-    type: Number,
-  },
-  currentMonth: {
-    type: Number,
-  },
-  currentDay: {
-    type: Number,
-  },
-  currentHour: {
-    type: Number,
-  },
-  currentMinute: {
-    type: Number,
-  },
   nextYear: {
     type: Number,
   },

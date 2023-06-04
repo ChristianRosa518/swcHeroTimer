@@ -12,21 +12,47 @@ router.get("/tester", (req, res) => {
 router.put("/updateMiniBoss", async (req, res) => {
   const name = req.body.name;
   const data = await miniBoss.findOne({ continent: name });
-  //22
+  //make new date to update time without large function
+  console.log(data);
   const newDate = new Date(
     data.nextYear,
     data.nextMonth,
     data.nextDay,
-    // data.nextHour,
-    19,
+    data.nextHour,
+    // 12,
     data.nextMinute,
     0,
     0
   );
 
+  // add additional hours for mb update. three hour schedule.
   newDate.setHours(newDate.getHours() + 3);
 
-  res.send(newDate);
+  //get number values
+  const [years, months, days, hours, minutes, seconds] =
+    getReturnValues(newDate);
+
+  // update values
+
+  console.log(years, months, days, hours, minutes, seconds);
+  data.nextYear = years;
+  data.nextMonth = months;
+  data.nextDay = days;
+  data.nextHour = hours;
+  data.nextMinute = minutes;
+
+  data.save();
+  // console.log("updated", data);
+
+  console.log("MB Times Updated");
+  res.json({
+    years: years,
+    months: months,
+    days: days,
+    hours: hours,
+    minutes: minutes,
+    seconds: seconds,
+  });
 });
 
 router.get("/getTimes", async (req, res) => {
@@ -34,26 +60,15 @@ router.get("/getTimes", async (req, res) => {
   const data = await miniBoss.find();
 
   res.send(data);
-  // console.log(date);
-
-  // const [years, months, days, hours, minutes, seconds] = getReturnValues(date);
-  // res.json({
-  //   year: years,
-  //   month: months,
-  //   day: days,
-  //   hours: hours,
-  //   minutes: minutes,
-  //   seconds: seconds,
-  // });
 });
 
 const getReturnValues = (countDown) => {
-  years = countDown.getFullYear();
-  months = countDown.getMonth();
-  days = countDown.getDay();
-  hours = countDown.getHours();
-  minutes = countDown.getMinutes();
-  seconds = countDown.getSeconds();
+  const years = countDown.getFullYear();
+  const months = countDown.getMonth();
+  const days = countDown.getDate();
+  const hours = countDown.getHours();
+  const minutes = countDown.getMinutes();
+  const seconds = countDown.getSeconds();
 
   // Date.setHours(hours, minutes, seconds, ms)
 
