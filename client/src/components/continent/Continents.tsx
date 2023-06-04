@@ -124,6 +124,7 @@ function Continent({ continent, server }: continentInter) {
     //fetch baph and mb time
     console.log(server + "/miniboss/getTimes");
     fetch(server + "/miniboss/getTimes", {
+      method: "GET",
       mode: "cors",
       headers: {
         "Access-Control-Allow-Origin": "*",
