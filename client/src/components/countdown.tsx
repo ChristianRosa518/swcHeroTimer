@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 
-const useCountdown = (targetDate: Date, continent: string, url: string) => {
+const useCountdown = (
+  targetDate: Date,
+  continent: string,
+  url: string,
+  MonType: string
+) => {
   const [countDownDate, setCountDownDate] = useState<number>(
     targetDate.getTime()
   );
 
-  const [newDate, setNewDate] = useState();
   const [countDown, setCountDown] = useState(
     countDownDate - new Date().getTime()
   );
@@ -20,14 +24,14 @@ const useCountdown = (targetDate: Date, continent: string, url: string) => {
 
   useEffect(() => {
     const [days, hours, minutes, seconds] = getReturnValues(countDown);
-    console.log(days + hours + minutes + seconds);
+    console.log(`${days + hours + minutes + seconds}  ${MonType}  " Time"`);
     if (days + hours + minutes + seconds <= -50) {
       updateMBTime();
     }
   }, [countDown]);
 
   const updateMBTime = async () => {
-    const data: any = await fetch(url + "/miniboss/updateMiniBoss", {
+    const data: any = await fetch(url + "/" + MonType + "/updateMiniBoss", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -36,7 +40,7 @@ const useCountdown = (targetDate: Date, continent: string, url: string) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("hi");
+        console.log(`Updating ${MonType} Times`);
         const newDate = new Date(
           data.years,
           data.months,
@@ -46,6 +50,9 @@ const useCountdown = (targetDate: Date, continent: string, url: string) => {
           data.seconds
         );
         setCountDownDate(newDate.getTime());
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 
