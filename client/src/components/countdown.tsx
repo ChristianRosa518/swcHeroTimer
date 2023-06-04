@@ -54,6 +54,8 @@ const useCountdown = (
       .catch((err) => {
         console.log(err);
       });
+    // this is here so i can build, I don't need to have this variable but typescript yknow or maybe I made an error.
+    console.log(data);
   };
 
   const getReturnValues = (countDown: number) => {
