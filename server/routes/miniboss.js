@@ -31,8 +31,8 @@ router.patch("/updateMiniBoss", async (req, res) => {
     data.nextDay = days;
     data.nextHour = hours;
     data.nextMinute = minutes;
-    data.save();
 
+    data.save();
     // console.log(`${data.continent} Miniboss times updated`);
     res.json({
       years: years,
@@ -42,8 +42,8 @@ router.patch("/updateMiniBoss", async (req, res) => {
       minutes: minutes,
       seconds: seconds,
     });
-    return;
-  } else if (newDate.getTime() - currentDate.getTime() > -1) {
+  }
+  if (newDate.getTime() - currentDate.getTime() > -1) {
     console.log("times not updated", newDate.getTime() - currentDate.getTime());
     res.json({
       years: data.nextYear,
