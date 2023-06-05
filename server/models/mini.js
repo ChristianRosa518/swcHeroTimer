@@ -22,6 +22,9 @@ const miniBossSchema = new Schema({
   nextMinute: {
     type: Number,
   },
+  nextSecond: {
+    type: Number,
+  },
 });
 
 const miniBoss = mongoose.model("miniBoss", miniBossSchema);
