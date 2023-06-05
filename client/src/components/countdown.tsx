@@ -40,6 +40,7 @@ const useCountdown = (
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         console.log(`Updating ${MonType} Times`);
         const newDate = new Date(
           data.years,
