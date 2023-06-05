@@ -30,8 +30,8 @@ const useCountdown = (
     }
   }, [countDown]);
 
-  const updateMBTime = async () => {
-    await fetch(url + "/" + MonType + "/updateMiniBoss", {
+  const updateMBTime = () => {
+    fetch(url + "/" + MonType + "/updateMiniBoss", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
