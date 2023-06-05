@@ -38,8 +38,25 @@ router.put("/updateMiniBoss", async (req, res) => {
     data.nextMinute = minutes;
 
     data.save();
+    // console.log(`${data.continent} Miniboss times updated`);
+    res.json({
+      years: years,
+      months: months,
+      days: days,
+      hours: hours,
+      minutes: minutes,
+      seconds: seconds,
+    });
   } else if (mathedDate > 0) {
     console.log("not saving data");
+    res.json({
+      years: data.nextYear,
+      months: data.nextMonth,
+      days: data.nextDay,
+      hours: data.nextHour,
+      minutes: data.nextMinute,
+      seconds: data.nextSecond,
+    });
   }
 });
 
