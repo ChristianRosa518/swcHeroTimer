@@ -22,7 +22,7 @@ router.put("/updateMiniBoss", async (req, res) => {
   const mathedDate = newDate.getTime() - currentDate.getTime();
   console.log(currentDate.getTime(), "currentDate Time");
   console.log(newDate.getTime(), "newDate Time");
-  console.log(newDate.getTime() - currentDate.getTime(), "minused Time");
+  console.log(mathedDate, "minused Time");
   if (mathedDate <= -1) {
     newDate.setHours(newDate.getHours() + 3);
     const [years, months, days, hours, minutes, seconds] =
