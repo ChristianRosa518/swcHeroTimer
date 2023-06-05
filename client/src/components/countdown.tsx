@@ -24,13 +24,14 @@ const useCountdown = (
 
   useEffect(() => {
     const [days, hours, minutes, seconds] = getReturnValues(countDown);
-    if (days + hours + minutes + seconds <= 0) {
+    if (days + hours + minutes + seconds < -1) {
+      console.log("Running Function");
       updateMBTime();
     }
   }, [countDown]);
 
   const updateMBTime = async () => {
-    const data: any = await fetch(url + "/" + MonType + "/updateMiniBoss", {
+    await fetch(url + "/" + MonType + "/updateMiniBoss", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -54,7 +55,6 @@ const useCountdown = (
         console.log(err);
       });
     // this is here so i can build, I don't need to have this variable but typescript yknow or maybe I made an error.
-    console.log(data);
   };
 
   const getReturnValues = (countDown: number) => {
