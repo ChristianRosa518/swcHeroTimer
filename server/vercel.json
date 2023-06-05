@@ -5,15 +5,11 @@
       "use": "@vercel/node"
     }
   ],
-  "functions": {
-    "miniboss/getTimes": {
-      "memory": 3008,
-      "maxDuration": 60
-    },
-    "miniboss/updateMiniBoss": {
-      "memory": 1024,
-      "maxDuration": 30
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/"
     }
-  },
+  ],
   "installCommand": "npm install"
 }
