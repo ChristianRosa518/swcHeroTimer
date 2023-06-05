@@ -12,39 +12,47 @@ router.put("/updateMiniBoss", async (req, res) => {
     data.nextMonth,
     data.nextDay,
     data.nextHour,
-    // 12,
     data.nextMinute,
     0,
     0
   );
 
+  // check if db time - current time is negative, if negative update new value with next value
   // add additional hours for mb update. three hour schedule.
-  newDate.setHours(newDate.getHours() + 3);
+  const currentDate = new Date();
 
-  //get number values
-  const [years, months, days, hours, minutes, seconds] =
-    getReturnValues(newDate);
+  if (newDate.getTime() - currentDate.getTime() <= 0) {
+    newDate.setHours(newDate.getHours() + 3);
+    const [years, months, days, hours, minutes, seconds] =
+      getReturnValues(newDate);
 
-  // update values
-
-  data.nextYear = years;
-  data.nextMonth = months;
-  data.nextDay = days;
-  data.nextHour = hours;
-  data.nextMinute = minutes;
-
-  data.save();
-  // console.log("updated", data);
-
-  console.log(`${data.continent} Miniboss times updated`);
-  res.json({
-    years: years,
-    months: months,
-    days: days,
-    hours: hours,
-    minutes: minutes,
-    seconds: seconds,
-  });
+    // update values
+    data.nextYear = years;
+    data.nextMonth = months;
+    data.nextDay = days;
+    data.nextHour = hours;
+    data.nextMinute = minutes;
+    data.save();
+    console.log(`${data.continent} Miniboss times updated`);
+    res.json({
+      years: years,
+      months: months,
+      days: days,
+      hours: hours,
+      minutes: minutes,
+      seconds: seconds,
+    });
+  } else {
+    console.log("times not updated");
+    res.json({
+      years: data.nextYear,
+      months: data.nextMonth,
+      days: data.nextDay,
+      hours: data.nextHour,
+      minutes: data.nextMinute,
+      seconds: 0,
+    });
+  }
 });
 
 router.get("/getTimes", async (req, res) => {
@@ -69,11 +77,6 @@ router.post("/newMB", (req, res) => {
   console.log(req.body);
   const minibossTime = new miniBoss({
     continent: req.body.continent,
-    currentYear: req.body.currentYear,
-    currentMonth: req.body.currentMonth,
-    currentDay: req.body.currentDay,
-    currentHour: req.body.currentHour,
-    currentMinute: req.body.currentMinute,
     nextYear: req.body.nextYear,
     nextMonth: req.body.nextMonth,
     nextDay: req.body.nextDay,

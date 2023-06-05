@@ -24,7 +24,6 @@ const useCountdown = (
 
   useEffect(() => {
     const [days, hours, minutes, seconds] = getReturnValues(countDown);
-    console.log(`${days + hours + minutes + seconds}  ${MonType}  " Time"`);
     if (days + hours + minutes + seconds <= -50) {
       updateMBTime();
     }

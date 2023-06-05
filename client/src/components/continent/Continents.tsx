@@ -14,8 +14,33 @@ interface ContinentsInter {
   server: string;
 }
 
+interface mbTimeInter {
+  _id: string;
+  continent: string;
+  nextYear: number;
+  nextMonth: number;
+  nextDay: number;
+  nextHour: number;
+  nextMinute: number;
+}
+
 function Continents({ server }: ContinentsInter) {
   const [page, setPage] = React.useState<number>(0);
+  const [mbTimes, setMbTimes] = React.useState<mbTimeInter[]>([]);
+
+  React.useEffect(() => {
+    //fetch miniboss times
+    fetch(server + "/miniboss/getTimes", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setMbTimes(data);
+      });
+  }, []);
 
   const continents: heroArea[] = [
     {
@@ -73,7 +98,11 @@ function Continents({ server }: ContinentsInter) {
         {continents.map((continent, index) => (
           <div key={continent.name}>
             {page === index && (
-              <Continent continent={continent} server={server} />
+              <Continent
+                continent={continent}
+                server={server}
+                mbTime={mbTimes}
+              />
             )}
           </div>
         ))}
@@ -110,9 +139,10 @@ function PageSelector({ setPage, continents }: pageSelectorInter) {
 interface continentInter {
   continent: heroArea;
   server: string;
+  mbTime: mbTimeInter[];
 }
 
-function Continent({ continent, server }: continentInter) {
+function Continent({ continent, server, mbTime }: continentInter) {
   const [[daysMB, hoursMB, minutesMB, secondsMB], setCountDownDateMB]: any =
     useCountdown(new Date(), continent.name, server, "miniBoss");
   const [
@@ -122,36 +152,22 @@ function Continent({ continent, server }: continentInter) {
 
   React.useEffect(() => {
     //fetch baph and mb time
-    fetch(server + "/miniboss/getTimes", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        for (let i = 0; i < data.length; i++) {
-          if (data[i].continent === continent.name) {
-            const newDate = new Date(
-              data[i].nextYear,
-              data[i].nextMonth,
-              data[i].nextDay,
-              data[i].nextHour,
-              data[i].nextMinute,
-              0,
-              0
-            );
-            setCountDownDateMB(newDate.getTime());
-            setCountDownDateBaph(new Date().getTime());
-          }
-        }
-      });
-  }, []);
-
-  // code as example to set new date.
-  // const newDate = new Date(2023, 5, 3, 22, 30, 0, 0);
-  // const newerDate = newDate.setHours(newDate.getHours() + 13);
-  // const newerdater = newDate.setMinutes(newDate.getMinutes() + 20);
+    for (let i = 0; i < mbTime.length; i++) {
+      if (mbTime[i].continent === continent.name) {
+        const newDate = new Date(
+          mbTime[i].nextYear,
+          mbTime[i].nextMonth,
+          mbTime[i].nextDay,
+          mbTime[i].nextHour,
+          mbTime[i].nextMinute,
+          0,
+          0
+        );
+        setCountDownDateMB(newDate.getTime());
+        setCountDownDateBaph(new Date().getTime());
+      }
+    }
+  }, [mbTime]);
 
   return (
     <>
@@ -160,6 +176,16 @@ function Continent({ continent, server }: continentInter) {
         Developed by Chedic, join our clan KyoshiWarriors for more resources!
       </div>
       <div>{continent.name}</div>
+      <div className={styles.nav}>
+        <svg height={120} width={300}>
+          <path
+            fill="#E8D8BD"
+            d={
+              "M 0 77 V 125 H 96 H 134 C 134 116 144 106 154 106 V 96 C 173 77 173 48 154 29 V 20 C 144 20 134 10 134 0 H 0 V 77"
+            }
+          ></path>
+        </svg>
+      </div>
       <div>
         {continent.Baphomet} : {daysBAPH}, {hoursBAPH}, {minutesBAPH},
         {secondsBAPH}
