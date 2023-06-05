@@ -19,8 +19,10 @@ router.patch("/updateMiniBoss", async (req, res) => {
   // check if db time - current time is negative, if negative update new value with next value
   // add additional hours for mb update. three hour schedule.
   const currentDate = new Date();
+  console.log(currentDate.getTime(), "currentDate Time");
+  console.log(newDate.getTime(), "newDate Time");
+  console.log(newDate.getTime() - currentDate.getTime(), "minused Time");
   if (newDate.getTime() - currentDate.getTime() <= -1) {
-    console.log(newDate.getTime() - currentDate.getTime());
     newDate.setHours(newDate.getHours() + 3);
     const [years, months, days, hours, minutes, seconds] =
       getReturnValues(newDate);
@@ -42,8 +44,7 @@ router.patch("/updateMiniBoss", async (req, res) => {
       minutes: minutes,
       seconds: seconds,
     });
-  }
-  if (newDate.getTime() - currentDate.getTime() > -1) {
+  } else if (newDate.getTime() - currentDate.getTime() > -1) {
     console.log("times not updated", newDate.getTime() - currentDate.getTime());
     res.json({
       years: data.nextYear,
