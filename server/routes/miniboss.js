@@ -47,7 +47,9 @@ router.put("/updateMiniBoss", async (req, res) => {
       minutes: minutes,
       seconds: seconds,
     });
-  } else {
+  }
+  if (mathedDate > 0) {
+    console.log("not saving data");
     data.save();
     res.json({
       years: data.nextYear,
