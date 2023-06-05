@@ -21,7 +21,6 @@ router.put("/updateMiniBoss", async (req, res) => {
   const currentDate = new Date();
   const mathedDate = newDate.getTime() - currentDate.getTime();
   if (mathedDate < 0) {
-    console.log(data.nextYear);
     console.log("times updated");
     newDate.setHours(newDate.getHours() + 3);
     const [years, months, days, hours, minutes, seconds] =
@@ -45,6 +44,7 @@ router.put("/updateMiniBoss", async (req, res) => {
       seconds: seconds,
     });
   } else if (mathedDate > 0) {
+    console.log("not updating");
     const [years, months, days, hours, minutes, seconds] =
       getReturnValues(newDate);
 
