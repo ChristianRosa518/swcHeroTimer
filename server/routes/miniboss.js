@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const miniBoss = require("../models/mini");
 
-router.patch("/updateMiniBoss", async (req, res) => {
+router.put("/updateMiniBoss", async (req, res) => {
   const name = req.body.name;
   const data = await miniBoss.findOne({ continent: name });
   //make new date to update time without large function
@@ -44,9 +44,7 @@ router.patch("/updateMiniBoss", async (req, res) => {
       minutes: minutes,
       seconds: seconds,
     });
-  }
-
-  if (newDate.getTime() - currentDate.getTime() > -1) {
+  } else if (newDate.getTime() - currentDate.getTime() > -1) {
     console.log("times not updated", newDate.getTime() - currentDate.getTime());
   }
 });

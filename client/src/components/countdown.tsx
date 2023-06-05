@@ -32,7 +32,7 @@ const useCountdown = (
 
   const updateMBTime = () => {
     fetch(url + "/" + MonType + "/updateMiniBoss", {
-      method: "PATCH",
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         name: continent,
