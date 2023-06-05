@@ -47,7 +47,17 @@ router.put("/updateMiniBoss", async (req, res) => {
       minutes: minutes,
       seconds: seconds,
     });
-  } else console.log("times not updated");
+  } else {
+    data.save();
+    res.json({
+      years: data.nextYear,
+      months: data.nextMonth,
+      days: data.nextDay,
+      hours: data.nextHour,
+      minutes: data.nextMinute,
+      seconds: data.nextSecond,
+    });
+  }
 });
 
 router.get("/getTimes", async (req, res) => {
