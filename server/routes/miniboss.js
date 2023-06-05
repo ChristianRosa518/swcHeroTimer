@@ -6,7 +6,6 @@ router.put("/updateMiniBoss", async (req, res) => {
   const name = req.body.name;
   const data = await miniBoss.findOne({ continent: name });
   //make new date to update time without large function
-  // console.log(data);
   const newDate = new Date(
     data.nextYear,
     data.nextMonth,
@@ -20,7 +19,7 @@ router.put("/updateMiniBoss", async (req, res) => {
   // check if db time - current time is negative, if negative update new value with next value
   // add additional hours for mb update. three hour schedule.
   const currentDate = new Date();
-  if (newDate.getTime() - currentDate.getTime() <= 0) {
+  if (newDate.getTime() - currentDate.getTime() <= -1) {
     newDate.setHours(newDate.getHours() + 3);
     const [years, months, days, hours, minutes, seconds] =
       getReturnValues(newDate);
@@ -33,7 +32,7 @@ router.put("/updateMiniBoss", async (req, res) => {
     data.nextMinute = minutes;
     data.save();
 
-    console.log(`${data.continent} Miniboss times updated`);
+    console.log(`${data.continent} Miniboss times updated`, data);
     res.json({
       years: years,
       months: months,
