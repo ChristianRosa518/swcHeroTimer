@@ -45,8 +45,8 @@ router.put("/updateMiniBoss", async (req, res) => {
       minutes: minutes,
       seconds: seconds,
     });
-  } else if (mathedDate > -1) {
-    console.log("times not updated", newDate.getTime() - currentDate.getTime());
+  } else {
+    console.log("times not updated", mathedDate);
   }
 });
 
