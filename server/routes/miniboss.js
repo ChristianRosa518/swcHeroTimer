@@ -45,14 +45,9 @@ router.put("/updateMiniBoss", async (req, res) => {
       seconds: seconds,
     });
   } else if (mathedDate > 0) {
-    console.log("hi");
-    console.log(data.nextYear);
     const [years, months, days, hours, minutes, seconds] =
       getReturnValues(newDate);
 
-    // update values
-
-    // console.log(`${data.continent} Miniboss times updated`);
     res.json({
       years: years,
       months: months,
