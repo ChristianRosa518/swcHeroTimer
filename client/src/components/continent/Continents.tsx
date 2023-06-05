@@ -145,10 +145,10 @@ interface continentInter {
 function Continent({ continent, server, mbTime }: continentInter) {
   const [[daysMB, hoursMB, minutesMB, secondsMB], setCountDownDateMB]: any =
     useCountdown(new Date(), continent.name, server, "miniBoss");
-  const [
-    [daysBAPH, hoursBAPH, minutesBAPH, secondsBAPH],
-    setCountDownDateBaph,
-  ]: any = useCountdown(new Date(), continent.name, server, "baphomet");
+  // const [
+  //   [daysBAPH, hoursBAPH, minutesBAPH, secondsBAPH],
+  //   setCountDownDateBaph,
+  // ]: any = useCountdown(new Date(), continent.name, server, "baphomet");
 
   React.useEffect(() => {
     //fetch baph and mb time
@@ -164,7 +164,7 @@ function Continent({ continent, server, mbTime }: continentInter) {
           0
         );
         setCountDownDateMB(newDate.getTime());
-        setCountDownDateBaph(new Date().getTime());
+        // setCountDownDateBaph(new Date().getTime());
       }
     }
   }, [mbTime]);
@@ -187,8 +187,9 @@ function Continent({ continent, server, mbTime }: continentInter) {
         </svg>
       </div>
       <div>
-        {continent.Baphomet} : {daysBAPH}, {hoursBAPH}, {minutesBAPH},
-        {secondsBAPH}
+        {continent.Baphomet}
+        {/* {continent.Baphomet} : {daysBAPH}, {hoursBAPH}, {minutesBAPH},
+        {secondsBAPH} */}
       </div>
       {continent.miniBosses.map((name) => (
         <div key={name}>
