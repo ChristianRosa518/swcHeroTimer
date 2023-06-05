@@ -47,17 +47,8 @@ router.put("/updateMiniBoss", async (req, res) => {
       minutes: minutes,
       seconds: seconds,
     });
-  } else if (mathedDate > 0) {
-    console.log("not saving data");
-    res.json({
-      years: data.nextYear,
-      months: data.nextMonth,
-      days: data.nextDay,
-      hours: data.nextHour,
-      minutes: data.nextMinute,
-      seconds: data.nextSecond,
-    });
   }
+  console.log("hiii im running");
 });
 
 router.get("/getTimes", async (req, res) => {
