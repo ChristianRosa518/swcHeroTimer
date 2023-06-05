@@ -46,7 +46,7 @@ router.put("/updateMiniBoss", async (req, res) => {
       minutes: minutes,
       seconds: seconds,
     });
-  } else return console.log("times not updated");
+  }
 });
 
 router.get("/getTimes", async (req, res) => {
