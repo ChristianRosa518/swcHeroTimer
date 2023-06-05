@@ -44,23 +44,10 @@ router.patch("/updateMiniBoss", async (req, res) => {
       minutes: minutes,
       seconds: seconds,
     });
-  } else if (newDate.getTime() - currentDate.getTime() > -1) {
+  }
+
+  if (newDate.getTime() - currentDate.getTime() > -1) {
     console.log("times not updated", newDate.getTime() - currentDate.getTime());
-    if (data.nextSecond === 1) {
-      data.nextSecond = 0;
-      data.save();
-    } else {
-      data.nextSecond = 1;
-      data.save();
-    }
-    res.json({
-      years: data.nextYear,
-      months: data.nextMonth,
-      days: data.nextDay,
-      hours: data.nextHour,
-      minutes: data.nextMinute,
-      seconds: 0,
-    });
   }
 });
 
