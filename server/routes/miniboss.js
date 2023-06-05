@@ -19,8 +19,6 @@ router.put("/updateMiniBoss", async (req, res) => {
       0
     );
     const mathedDate = newDate.getTime() - currentDate.getTime();
-    console.log(currentDate.getTime(), "currentDate Time");
-    console.log(newDate.getTime(), "newDate Time");
     console.log(mathedDate, "minused Time");
 
     if (mathedDate < 0) {
