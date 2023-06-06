@@ -22,11 +22,13 @@ router.put("/updateMiniBoss", async (req, res) => {
 });
 
 router.get("/getTimes", async (req, res) => {
+  console.log("Fetching times");
   const data = await miniBoss.find();
   res.send(data);
 });
 
 const checkUpdate = async (newDate, data) => {
+  console.log(newDate);
   const currentDate = new Date();
   const mathedDate = newDate.getTime() - currentDate.getTime();
   if (mathedDate < 0) {
