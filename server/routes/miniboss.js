@@ -3,7 +3,6 @@ const router = express.Router();
 const miniBoss = require("../models/mini");
 
 router.put("/updateMiniBoss", async (req, res) => {
-  console.log(req.method);
   const name = req.body.name;
   const data = await miniBoss.findOne({ continent: name });
   //make new date to update time without large function
@@ -18,8 +17,12 @@ router.put("/updateMiniBoss", async (req, res) => {
   );
   // check if db time - current time is negative, if negative update new value with next value
   // add additional hours for mb update. three hour schedule.
-  const updatedData = await checkUpdate(newDate, data);
-  res.send(updatedData);
+  if (req.method === "PUT") {
+    const updatedData = await checkUpdate(newDate, data);
+    res.send(updatedData);
+  } else {
+    res.status(Status.OK).send("Ok");
+  }
 });
 
 router.get("/getTimes", async (req, res) => {
@@ -31,7 +34,14 @@ router.get("/getTimes", async (req, res) => {
 const checkUpdate = async (newDate, data) => {
   const currentDate = new Date();
   const mathedDate = newDate.getTime() - currentDate.getTime();
-  console.log("FetchedDate : ", newDate, "Time Difference : ", mathedDate);
+  console.log(
+    "FetchedDate : ",
+    newDate,
+    "CurrentDateTime",
+    currentDate.getTime(),
+    "Time Difference : ",
+    mathedDate
+  );
 
   if (mathedDate < 0) {
     newDate.setHours(newDate.getHours() + 3);
