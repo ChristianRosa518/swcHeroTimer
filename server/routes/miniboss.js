@@ -3,6 +3,7 @@ const router = express.Router();
 const miniBoss = require("../models/mini");
 
 router.put("/updateMiniBoss", async (req, res) => {
+  console.log(req.method);
   const name = req.body.name;
   const data = await miniBoss.findOne({ continent: name });
   //make new date to update time without large function
@@ -31,6 +32,7 @@ const checkUpdate = async (newDate, data) => {
   const currentDate = new Date();
   const mathedDate = newDate.getTime() - currentDate.getTime();
   console.log("FetchedDate : ", newDate, "Time Difference : ", mathedDate);
+
   if (mathedDate < 0) {
     newDate.setHours(newDate.getHours() + 3);
     const [years, months, days, hours, minutes, seconds] =
