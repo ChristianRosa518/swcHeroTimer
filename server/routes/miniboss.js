@@ -21,10 +21,15 @@ router.put("/updateMiniBoss", async (req, res) => {
 });
 
 const checkUpdate = (newDate, data) => {
+  const serverOffset = new Date().getTimezoneOffset() * 60 * 1000;
+
   console.log("Fetched Time : ", newDate);
   console.log("CurrentTime : ", new Date());
-  console.log("measured time : ", newDate.getTime() - Date.now());
-  let mathedDate = newDate.getTime() - Date.now();
+  console.log(
+    "measured time : ",
+    newDate.getTime() - (Date.now() + serverOffset)
+  );
+  let mathedDate = newDate.getTime() - (Date.now() + serverOffset);
 
   if (mathedDate < 0) {
     newDate.setHours(newDate.getHours() + 3);

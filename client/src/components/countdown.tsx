@@ -48,7 +48,7 @@ const useCountdown = (
           data.minutes,
           data.seconds
         );
-        setCountDownDate(newDate.getTime() + localoffset);
+        setCountDownDate(newDate.getTime());
       })
       .catch((err) => {
         console.log(err);
