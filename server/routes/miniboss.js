@@ -29,6 +29,8 @@ const checkUpdate = (newDate, data) => {
   if (mathedDate < 0) {
     newDate.setHours(newDate.getHours() + 3);
     console.log("Updated Time : ", newDate);
+
+    console.log("TimeZone OffSet: ", newDate.getTimezoneOffset());
     console.log(
       "measured time after addition : ",
       newDate.getTime() - Date.now()
