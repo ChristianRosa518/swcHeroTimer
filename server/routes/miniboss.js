@@ -38,7 +38,7 @@ const checkUpdate = async (newDate, data) => {
     "FetchedDate : ",
     newDate,
     "CurrentDateTime",
-    currentDate.getTime(),
+    currentDate,
     "Time Difference : ",
     mathedDate
   );
