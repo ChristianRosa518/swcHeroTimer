@@ -15,9 +15,18 @@ router.put("/updateMiniBoss", async (req, res) => {
     0,
     0
   );
-
   // check if db time - current time is negative, if negative update new value with next value
   // add additional hours for mb update. three hour schedule.
+  const updatedData = await checkUpdate(newDate, data);
+  res.send(updatedData);
+});
+
+router.get("/getTimes", async (req, res) => {
+  const data = await miniBoss.find();
+  res.send(data);
+});
+
+const checkUpdate = async (newDate, data) => {
   const currentDate = new Date();
   const mathedDate = newDate.getTime() - currentDate.getTime();
   if (mathedDate < 0) {
@@ -35,34 +44,29 @@ router.put("/updateMiniBoss", async (req, res) => {
 
     data.save();
     // console.log(`${data.continent} Miniboss times updated`);
-    res.json({
+    return {
       years: years,
       months: months,
       days: days,
       hours: hours,
       minutes: minutes,
       seconds: seconds,
-    });
+    };
   } else if (mathedDate > 0) {
     console.log("not updating");
     const [years, months, days, hours, minutes, seconds] =
       getReturnValues(newDate);
 
-    res.json({
+    return {
       years: years,
       months: months,
       days: days,
       hours: hours,
       minutes: minutes,
       seconds: seconds,
-    });
+    };
   }
-});
-
-router.get("/getTimes", async (req, res) => {
-  const data = await miniBoss.find();
-  res.send(data);
-});
+};
 
 const getReturnValues = (countDown) => {
   const years = countDown.getFullYear();
