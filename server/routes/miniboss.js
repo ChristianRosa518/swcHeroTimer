@@ -28,11 +28,10 @@ router.get("/getTimes", async (req, res) => {
 });
 
 const checkUpdate = async (newDate, data) => {
-  console.log(newDate);
   const currentDate = new Date();
   const mathedDate = newDate.getTime() - currentDate.getTime();
+  console.log("FetchedDate : ", newDate, "Time Difference : ", mathedDate);
   if (mathedDate < 0) {
-    console.log("times updated");
     newDate.setHours(newDate.getHours() + 3);
     const [years, months, days, hours, minutes, seconds] =
       getReturnValues(newDate);
@@ -45,6 +44,7 @@ const checkUpdate = async (newDate, data) => {
     data.nextMinute = minutes;
 
     data.save();
+    console.log(newDate, "times updated");
     // console.log(`${data.continent} Miniboss times updated`);
     return {
       years: years,
@@ -55,10 +55,10 @@ const checkUpdate = async (newDate, data) => {
       seconds: seconds,
     };
   } else if (mathedDate > 0) {
-    console.log("not updating");
     const [years, months, days, hours, minutes, seconds] =
       getReturnValues(newDate);
 
+    console.log(newDate, "not updating");
     return {
       years: years,
       months: months,
