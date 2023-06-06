@@ -31,7 +31,6 @@ const useCountdown = (
   }, [countDown]);
 
   const updateMBTime = () => {
-    // trying to build
     fetch(url + "/" + MonType + "/updateMiniBoss", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
