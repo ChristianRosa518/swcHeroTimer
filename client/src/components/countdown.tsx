@@ -4,25 +4,34 @@ const useCountdown = (
   targetDate: number,
   continent: string,
   url: string,
-  MonType: string
+  MonType: string,
+  serverOffSet: number
 ) => {
   const [countDownDate, setCountDownDate] = useState<number>(targetDate);
-  const localoffset = new Date().getTimezoneOffset() * 60 * 1000;
+  const [localoffset, setLocaloffSet] = useState<number>(
+    new Date().getTimezoneOffset() * 60 * 1000 + serverOffSet
+  );
   const [countDown, setCountDown] = useState(
-    countDownDate - (Date.now() + localoffset)
+    countDownDate - (Date.now() - localoffset)
   );
 
   useEffect(() => {
+    if (new Date().getTimezoneOffset() * 60 * 1000 === serverOffSet) {
+      setLocaloffSet(new Date().getTimezoneOffset() * 60 * 1000);
+      console.log("Set offset");
+    }
+  }, [localoffset]);
+
+  useEffect(() => {
     const interval = setInterval(() => {
-      setCountDown(countDownDate - (Date.now() + localoffset));
+      setCountDown(countDownDate - Date.now() - localoffset);
     }, 1000);
 
     return () => clearInterval(interval);
   }, [countDownDate]);
 
   useEffect(() => {
-    console.log(localoffset);
-    if (countDownDate - (Date.now() + localoffset) < 0) {
+    if (countDownDate - (Date.now() - localoffset) < 0) {
       console.log("Running Function");
       updateMBTime();
     }
@@ -48,7 +57,7 @@ const useCountdown = (
           data.minutes,
           data.seconds
         );
-        setCountDownDate(newDate.getTime());
+        setCountDownDate(newDate.getTime() + localoffset);
       })
       .catch((err) => {
         console.log(err);
@@ -63,8 +72,6 @@ const useCountdown = (
     );
     const minutes = Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((countDown % (1000 * 60)) / 1000);
-
-    console.log(days, hours, minutes, seconds);
 
     return [days, hours, minutes, seconds];
   };

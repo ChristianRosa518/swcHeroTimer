@@ -29,7 +29,7 @@ const checkUpdate = (newDate, data) => {
     "measured time : ",
     newDate.getTime() - (Date.now() + serverOffset)
   );
-  let mathedDate = newDate.getTime() - (Date.now() + serverOffset);
+  const mathedDate = newDate.getTime() - (Date.now() + serverOffset);
 
   if (mathedDate < 0) {
     newDate.setHours(newDate.getHours() + 3);
@@ -38,7 +38,7 @@ const checkUpdate = (newDate, data) => {
     console.log("TimeZone OffSet: ", newDate.getTimezoneOffset());
     console.log(
       "measured time after addition : ",
-      newDate.getTime() - Date.now()
+      newDate.getTime() - (Date.now() + serverOffset)
     );
     const [years, months, days, hours, minutes, seconds] =
       getReturnValues(newDate);
@@ -60,6 +60,7 @@ const checkUpdate = (newDate, data) => {
       hours: hours,
       minutes: minutes,
       seconds: seconds,
+      serverOffset: serverOffset,
     };
   } else if (mathedDate > 0) {
     const [years, months, days, hours, minutes, seconds] =
@@ -73,6 +74,7 @@ const checkUpdate = (newDate, data) => {
       hours: hours,
       minutes: minutes,
       seconds: seconds,
+      serverOffset: serverOffset,
     };
   }
 };
@@ -99,9 +101,11 @@ const getReturnValues = (countDown) => {
 };
 
 router.get("/getTimes", async (req, res) => {
+  const serverOffset = new Date().getTimezoneOffset() * 60 * 1000;
+
   console.log("Fetching times");
   const data = await miniBoss.find();
-  res.send(data);
+  res.send({ data: data, serverOffset: serverOffset });
 });
 
 router.post("/newMB", (req, res) => {
