@@ -144,7 +144,7 @@ interface continentInter {
 
 function Continent({ continent, server, mbTime }: continentInter) {
   const [[daysMB, hoursMB, minutesMB, secondsMB], setCountDownDateMB]: any =
-    useCountdown(new Date(), continent.name, server, "miniBoss");
+    useCountdown(Date.now(), continent.name, server, "miniBoss");
   // const [
   //   [daysBAPH, hoursBAPH, minutesBAPH, secondsBAPH],
   //   setCountDownDateBaph,

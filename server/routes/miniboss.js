@@ -18,26 +18,19 @@ router.put("/updateMiniBoss", async (req, res) => {
     )
   );
 
-  console.log("UTC DATE : ", newDate.getUTCDay());
+  console.log("UTC Day : ", newDate.getUTCDate());
+  console.log("UTC Hours : ", newDate.getUTCHours());
   // check if db time - current time is negative, if negative update new value with next value
   // add additional hours for mb update. three hour schedule.
   const updatedData = await checkUpdate(newDate, data);
   res.send(updatedData);
 });
 
-router.get("/getTimes", async (req, res) => {
-  console.log("Fetching times");
-  const data = await miniBoss.find();
-  res.send(data);
-});
-
 const checkUpdate = async (newDate, data) => {
-  const currentDate = new Date();
-  console.log("currentDATE : ", currentDate.getUTCDate());
-  const mathedDate = newDate.getTime() - currentDate.getTime();
+  const mathedDate = newDate.getTime() - Date.now();
 
   if (mathedDate < 0) {
-    newDate.setUTCHours(newDate.getUTCHours() + 3);
+    newDate.setHours(newDate.getHours() + 3);
     const [years, months, days, hours, minutes, seconds] =
       getReturnValues(newDate);
 
@@ -49,7 +42,7 @@ const checkUpdate = async (newDate, data) => {
     data.nextMinute = minutes;
 
     data.save();
-    console.log(newDate.getHours(), newDate);
+    console.log(newDate.getUTCHours(), newDate);
     console.log(newDate, "times updated");
     // console.log(`${data.continent} Miniboss times updated`);
     return {
@@ -84,8 +77,16 @@ const getReturnValues = (countDown) => {
   const minutes = countDown.getUTCMinutes();
   const seconds = countDown.getUTCSeconds();
 
+  console.log(years, months, days, hours, minutes, seconds);
+
   return [years, months, days, hours, minutes, seconds];
 };
+
+router.get("/getTimes", async (req, res) => {
+  console.log("Fetching times");
+  const data = await miniBoss.find();
+  res.send(data);
+});
 
 router.post("/newMB", (req, res) => {
   console.log(req.body);

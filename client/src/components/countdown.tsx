@@ -1,22 +1,18 @@
 import { useEffect, useState } from "react";
 
 const useCountdown = (
-  targetDate: Date,
+  targetDate: number,
   continent: string,
   url: string,
   MonType: string
 ) => {
-  const [countDownDate, setCountDownDate] = useState<number>(
-    targetDate.getTime()
-  );
+  const [countDownDate, setCountDownDate] = useState<number>(targetDate);
 
-  const [countDown, setCountDown] = useState(
-    countDownDate - new Date().getTime()
-  );
+  const [countDown, setCountDown] = useState(countDownDate - Date.now());
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCountDown(countDownDate - new Date().getTime());
+      setCountDown(countDownDate - Date.now());
     }, 1000);
 
     return () => clearInterval(interval);
