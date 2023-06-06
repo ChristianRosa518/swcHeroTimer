@@ -19,8 +19,7 @@ const useCountdown = (
   }, [countDownDate]);
 
   useEffect(() => {
-    const [days, hours, minutes, seconds] = getReturnValues(countDown);
-    if (days + hours + minutes + seconds < 0) {
+    if (countDownDate - Date.now() < 0) {
       console.log("Running Function");
       updateMBTime();
     }
@@ -55,7 +54,6 @@ const useCountdown = (
   };
 
   const getReturnValues = (countDown: number) => {
-    // console.log(countDown / (1000 * 60 * 60 * 24));
     const days = Math.floor(countDown / (1000 * 60 * 60 * 24));
     const hours = Math.floor(
       (countDown % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)

@@ -7,30 +7,31 @@ router.put("/updateMiniBoss", async (req, res) => {
   const data = await miniBoss.findOne({ continent: name });
   //make new date to update time without large function
   const newDate = new Date(
-    Date.UTC(
-      data.nextYear,
-      data.nextMonth,
-      data.nextDay,
-      data.nextHour,
-      data.nextMinute,
-      0,
-      0
-    )
+    data.nextYear,
+    data.nextMonth,
+    data.nextDay,
+    data.nextHour,
+    data.nextMinute,
+    0,
+    0
   );
 
-  console.log("UTC Day : ", newDate.getUTCDate());
-  console.log("UTC Hours : ", newDate.getUTCHours());
-  // check if db time - current time is negative, if negative update new value with next value
-  // add additional hours for mb update. three hour schedule.
-  const updatedData = await checkUpdate(newDate, data);
+  const updatedData = checkUpdate(newDate, data);
   res.send(updatedData);
 });
 
-const checkUpdate = async (newDate, data) => {
-  const mathedDate = newDate.getTime() - Date.now();
+const checkUpdate = (newDate, data) => {
+  console.log("Fetched Time : ", newDate.getTime());
+  console.log("CurrentTime : ", Date.now());
+  console.log("measured time : ", newDate.getTime() - Date.now());
+  let mathedDate = newDate.getTime() - Date.now();
 
   if (mathedDate < 0) {
     newDate.setHours(newDate.getHours() + 3);
+    console.log(
+      "measured time after addition : ",
+      newDate.getTime() - Date.now()
+    );
     const [years, months, days, hours, minutes, seconds] =
       getReturnValues(newDate);
 
@@ -42,8 +43,7 @@ const checkUpdate = async (newDate, data) => {
     data.nextMinute = minutes;
 
     data.save();
-    console.log(newDate.getUTCHours(), newDate);
-    console.log(newDate, "times updated");
+    console.log("times updated");
     // console.log(`${data.continent} Miniboss times updated`);
     return {
       years: years,
@@ -70,14 +70,22 @@ const checkUpdate = async (newDate, data) => {
 };
 
 const getReturnValues = (countDown) => {
-  const years = countDown.getUTCFullYear();
-  const months = countDown.getUTCMonth();
-  const days = countDown.getUTCDate();
-  const hours = countDown.getUTCHours();
-  const minutes = countDown.getUTCMinutes();
-  const seconds = countDown.getUTCSeconds();
+  const years = countDown.getFullYear();
+  const months = countDown.getMonth();
+  const days = countDown.getDate();
+  const hours = countDown.getHours();
+  const minutes = countDown.getMinutes();
+  const seconds = countDown.getSeconds();
 
-  console.log(years, months, days, hours, minutes, seconds);
+  console.log(
+    "currentDateinReturnValues",
+    years,
+    months,
+    days,
+    hours,
+    minutes,
+    seconds
+  );
 
   return [years, months, days, hours, minutes, seconds];
 };
