@@ -24,7 +24,7 @@ const useCountdown = (
 
   useEffect(() => {
     const [days, hours, minutes, seconds] = getReturnValues(countDown);
-    if (days + hours + minutes + seconds < -10) {
+    if (days + hours + minutes + seconds < 0) {
       console.log("Running Function");
       updateMBTime();
     }

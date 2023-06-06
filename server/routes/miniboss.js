@@ -55,6 +55,18 @@ const checkUpdate = async (newDate, data) => {
     data.nextHour = hours;
     data.nextMinute = minutes;
 
+    const newethDateth = new Date(
+      data.nextYear,
+      data.nextMonth,
+      data.nextDay,
+      data.nextHour,
+      data.nextMinute,
+      0,
+      0
+    );
+
+    console.log(newethDateth);
+
     data.save();
     console.log(newDate, "times updated");
     // console.log(`${data.continent} Miniboss times updated`);
@@ -89,8 +101,6 @@ const getReturnValues = (countDown) => {
   const hours = countDown.getHours();
   const minutes = countDown.getMinutes();
   const seconds = countDown.getSeconds();
-
-  // Date.setHours(hours, minutes, seconds, ms)
 
   return [years, months, days, hours, minutes, seconds];
 };
