@@ -55,19 +55,8 @@ const checkUpdate = async (newDate, data) => {
     data.nextHour = hours;
     data.nextMinute = minutes;
 
-    const newethDateth = new Date(
-      data.nextYear,
-      data.nextMonth,
-      data.nextDay,
-      data.nextHour,
-      data.nextMinute,
-      0,
-      0
-    );
-
-    console.log(newethDateth);
-
     data.save();
+    console.log(newDate.getHours(), newDate);
     console.log(newDate, "times updated");
     // console.log(`${data.continent} Miniboss times updated`);
     return {
