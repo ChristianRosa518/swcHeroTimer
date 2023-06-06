@@ -7,19 +7,21 @@ const useCountdown = (
   MonType: string
 ) => {
   const [countDownDate, setCountDownDate] = useState<number>(targetDate);
-
-  const [countDown, setCountDown] = useState(countDownDate - Date.now());
+  const localoffset = new Date().getTimezoneOffset();
+  const [countDown, setCountDown] = useState(
+    countDownDate - (Date.now() + localoffset)
+  );
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCountDown(countDownDate - Date.now());
+      setCountDown(countDownDate - (Date.now() + localoffset));
     }, 1000);
 
     return () => clearInterval(interval);
   }, [countDownDate]);
 
   useEffect(() => {
-    if (countDownDate - Date.now() < 0) {
+    if (countDownDate - (Date.now() + localoffset) < 0) {
       console.log("Running Function");
       updateMBTime();
     }
