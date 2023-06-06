@@ -8,30 +8,28 @@ const useCountdown = (
   serverOffSet: number
 ) => {
   const [countDownDate, setCountDownDate] = useState<number>(targetDate);
-  const [localoffset, setLocaloffSet] = useState<number>(
-    new Date().getTimezoneOffset() * 60 * 1000 + serverOffSet
-  );
+  const [localoffset, setLocaloffSet] = useState<number>(0);
   const [countDown, setCountDown] = useState(
-    countDownDate - (Date.now() - localoffset)
+    countDownDate - (Date.now() + localoffset)
   );
 
   useEffect(() => {
     if (new Date().getTimezoneOffset() * 60 * 1000 === serverOffSet) {
       setLocaloffSet(new Date().getTimezoneOffset() * 60 * 1000);
       console.log("Set offset");
+    } else {
+      setLocaloffSet(new Date().getTimezoneOffset() * 60 * 1000 + serverOffSet);
+      console.log("Set offset beta");
     }
-  }, [localoffset]);
-
-  useEffect(() => {
     const interval = setInterval(() => {
-      setCountDown(countDownDate - Date.now() - localoffset);
+      setCountDown(countDownDate - (Date.now() + localoffset));
     }, 1000);
 
     return () => clearInterval(interval);
   }, [countDownDate]);
 
   useEffect(() => {
-    if (countDownDate - (Date.now() - localoffset) < 0) {
+    if (countDownDate - (Date.now() + localoffset) < 0) {
       console.log("Running Function");
       updateMBTime();
     }
@@ -57,7 +55,7 @@ const useCountdown = (
           data.minutes,
           data.seconds
         );
-        setCountDownDate(newDate.getTime() + localoffset);
+        setCountDownDate(newDate.getTime());
       })
       .catch((err) => {
         console.log(err);
