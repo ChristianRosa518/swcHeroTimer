@@ -25,7 +25,6 @@ app.get("/", (req, res) => {
 
 app.use("/miniboss", miniboss);
 app.use("/baphomet", baphomet);
-// updater function
 
 mongoose
   .connect(process.env.MONGODB_USER, {
