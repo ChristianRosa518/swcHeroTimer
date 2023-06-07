@@ -34,6 +34,7 @@ const useCountdown = (
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         name: continent,
+        offset: localoffset,
       }),
     })
       .then((res) => res.json())

@@ -4,6 +4,7 @@ const miniBoss = require("../models/mini");
 
 router.put("/update", async (req, res) => {
   const name = req.body.name;
+  const offset = req.body.offset;
   const data = await miniBoss.findOne({ continent: name });
   //make new date to update time without large function
   const newDate = new Date(
@@ -18,21 +19,20 @@ router.put("/update", async (req, res) => {
     )
   );
   console.log("mb timer");
-  const updatedData = checkUpdate(newDate, data);
+  const updatedData = checkUpdate(newDate, data, offset);
   res.send(updatedData);
   console.log("");
 });
 
-const checkUpdate = (newDate, data) => {
-  const serverOffset = new Date().getTimezoneOffset() * 60 * 1000;
-  console.log("Server off set", serverOffset);
+const checkUpdate = (newDate, data, offset) => {
+  console.log("Server off set", offset);
 
-  const mathedDate = newDate.getTime() - Date.now() + serverOffset;
+  const mathedDate = newDate.getTime() - Date.now() + offset;
   console.log("The Time : ", mathedDate);
 
   if (mathedDate < 0) {
     newDate.setHours(newDate.getHours() + 3);
-    const mathedDate = newDate.getTime() - Date.now() + serverOffset;
+    const mathedDate = newDate.getTime() - Date.now() + offset;
     console.log(mathedDate);
     const [years, months, days, hours, minutes, seconds] =
       getReturnValues(newDate);
@@ -54,7 +54,6 @@ const checkUpdate = (newDate, data) => {
       hours: hours,
       minutes: minutes,
       seconds: seconds,
-      serverOffset: serverOffset,
     };
   } else if (mathedDate > 0) {
     const [years, months, days, hours, minutes, seconds] =
@@ -68,7 +67,6 @@ const checkUpdate = (newDate, data) => {
       hours: hours,
       minutes: minutes,
       seconds: seconds,
-      serverOffset: serverOffset,
     };
   }
 };
@@ -95,11 +93,9 @@ const getReturnValues = (countDown) => {
 };
 
 router.get("/getTimes", async (req, res) => {
-  const serverOffset = new Date().getTimezoneOffset() * 60 * 1000;
-
   console.log("Fetching MB times");
   const data = await miniBoss.find();
-  res.send({ data: data, serverOffset: serverOffset });
+  res.send({ data: data });
 });
 
 router.post("/newMB", (req, res) => {

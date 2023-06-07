@@ -4,6 +4,7 @@ const baphomet = require("../models/baphomet");
 
 router.put("/update", async (req, res) => {
   const name = req.body.name;
+  const offset = req.body.offset;
   const data = await baphomet.findOne({ continent: name });
   //make new date to update time without large function
 
@@ -23,15 +24,13 @@ router.put("/update", async (req, res) => {
   console.log(newDate.toUTCString(), "ji");
   // console.log("updating bapho times");
 
-  const updatedData = checkUpdate(newDate, data);
+  const updatedData = checkUpdate(newDate, data, offset);
   res.send(updatedData);
   console.log("");
 });
 
-const checkUpdate = (newDate, data) => {
-  const serverOffset = new Date().getTimezoneOffset() * 60 * 1000;
-
-  const mathedDate = newDate.getTime() - (Date.now() + serverOffset);
+const checkUpdate = (newDate, data, offset) => {
+  const mathedDate = newDate.getTime() - (Date.now() + offset);
   console.log("The Time : ", mathedDate);
 
   if (mathedDate < 0) {
@@ -56,7 +55,6 @@ const checkUpdate = (newDate, data) => {
       hours: hours,
       minutes: minutes,
       seconds: seconds,
-      serverOffset: serverOffset,
     };
   } else if (mathedDate > 0) {
     const [years, months, days, hours, minutes, seconds] =
@@ -70,7 +68,6 @@ const checkUpdate = (newDate, data) => {
       hours: hours,
       minutes: minutes,
       seconds: seconds,
-      serverOffset: serverOffset,
     };
   }
 };
@@ -98,10 +95,8 @@ const getReturnValues = (countDown) => {
 
 router.get("/getTimes", async (req, res) => {
   console.log("Bapho times");
-  const serverOffset = new Date().getTimezoneOffset() * 60 * 1000;
-
   const data = await baphomet.find();
-  res.send({ data: data, serverOffset: serverOffset });
+  res.send({ data: data });
 });
 
 router.post("/newMB", (req, res) => {
