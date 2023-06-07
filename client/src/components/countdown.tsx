@@ -4,8 +4,7 @@ const useCountdown = (
   targetDate: number,
   continent: string,
   url: string,
-  MonType: string,
-  serverOffSet: number
+  MonType: string
 ) => {
   const [countDownDate, setCountDownDate] = useState<number>(targetDate);
   const localoffset = new Date().getTimezoneOffset() * 60 * 1000;

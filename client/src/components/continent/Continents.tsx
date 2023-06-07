@@ -26,7 +26,6 @@ interface mbTimeInter {
 }
 
 function Continents({ server }: ContinentsInter) {
-  const [serverOffset, setServerOffset] = React.useState<number>(0);
   const [page, setPage] = React.useState<number>(0);
   const [mbTimes, setMbTimes] = React.useState<mbTimeInter[]>([]);
   const [baphoTimes, setBaphoTimes] = React.useState<mbTimeInter[]>([]);
@@ -41,7 +40,6 @@ function Continents({ server }: ContinentsInter) {
     })
       .then((res) => res.json())
       .then((data) => {
-        setServerOffset(data.serverOffset);
         setMbTimes(data.data);
       });
   }, []);
@@ -116,7 +114,6 @@ function Continents({ server }: ContinentsInter) {
           <div key={continent.name}>
             {page === index && (
               <Continent
-                serverOffset={serverOffset}
                 continent={continent}
                 server={server}
                 mbTime={mbTimes}
@@ -160,29 +157,16 @@ interface continentInter {
   server: string;
   mbTime: mbTimeInter[];
   baphoTimes: mbTimeInter[];
-  serverOffset: number;
 }
 
-function Continent({
-  continent,
-  server,
-  mbTime,
-  baphoTimes,
-  serverOffset,
-}: continentInter) {
+function Continent({ continent, server, mbTime, baphoTimes }: continentInter) {
   const [[daysMB, hoursMB, minutesMB, secondsMB], setCountDownDateMB]: any =
-    useCountdown(Date.now(), continent.name, server, "miniBoss", serverOffset);
+    useCountdown(Date.now(), continent.name, server, "miniBoss");
 
   const [
     [daysBAPH, hoursBAPH, minutesBAPH, secondsBAPH],
     setCountDownDateBaph,
-  ]: any = useCountdown(
-    Date.now(),
-    continent.name,
-    server,
-    "baphomet",
-    serverOffset
-  );
+  ]: any = useCountdown(Date.now(), continent.name, server, "baphomet");
 
   React.useEffect(() => {
     for (let i = 0; i < mbTime.length; i++) {
