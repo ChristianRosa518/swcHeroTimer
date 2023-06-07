@@ -17,19 +17,22 @@ router.put("/update", async (req, res) => {
       0
     )
   );
-
+  console.log("mb timer");
   const updatedData = checkUpdate(newDate, data);
   res.send(updatedData);
+  console.log("");
 });
 
 const checkUpdate = (newDate, data) => {
   const serverOffset = new Date().getTimezoneOffset() * 60 * 1000;
 
-  const mathedDate = newDate.getTime() - (Date.now() + serverOffset);
+  const mathedDate = newDate.getTime() - Date.now() + serverOffset;
   console.log("The Time : ", mathedDate);
 
   if (mathedDate < 0) {
     newDate.setHours(newDate.getHours() + 3);
+    const mathedDate = newDate.getTime() - Date.now() + serverOffset;
+    console.log(mathedDate);
     const [years, months, days, hours, minutes, seconds] =
       getReturnValues(newDate);
 

@@ -21,6 +21,7 @@ const useCountdown = (
   }, [countDownDate]);
 
   useEffect(() => {
+    // updateMBTime();
     if (countDownDate + localoffset - Date.now() < 0) {
       console.log("Running Function");
       updateMBTime();
