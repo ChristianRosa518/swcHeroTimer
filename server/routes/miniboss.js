@@ -25,6 +25,7 @@ router.put("/update", async (req, res) => {
 
 const checkUpdate = (newDate, data) => {
   const serverOffset = new Date().getTimezoneOffset() * 60 * 1000;
+  console.log("Server off set", serverOffset);
 
   const mathedDate = newDate.getTime() - Date.now() + serverOffset;
   console.log("The Time : ", mathedDate);
