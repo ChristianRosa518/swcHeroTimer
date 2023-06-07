@@ -24,6 +24,7 @@ app.get("/", (req, res) => {
 //trying to redeploy
 
 app.use("/miniboss", miniboss);
+// dbjhasiedf
 app.use("/baphomet", baphomet);
 
 mongoose
