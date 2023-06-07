@@ -29,6 +29,7 @@ function Continents({ server }: ContinentsInter) {
   const [serverOffset, setServerOffset] = React.useState<number>(0);
   const [page, setPage] = React.useState<number>(0);
   const [mbTimes, setMbTimes] = React.useState<mbTimeInter[]>([]);
+  const [baphoTimes, setBaphoTimes] = React.useState<mbTimeInter[]>([]);
 
   React.useEffect(() => {
     //fetch miniboss times
@@ -42,6 +43,19 @@ function Continents({ server }: ContinentsInter) {
       .then((data) => {
         setServerOffset(data.serverOffset);
         setMbTimes(data.data);
+      });
+  }, []);
+
+  React.useEffect(() => {
+    fetch(server + "/baphomet/getTimes", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setBaphoTimes(data.data);
       });
   }, []);
 
@@ -106,6 +120,7 @@ function Continents({ server }: ContinentsInter) {
                 continent={continent}
                 server={server}
                 mbTime={mbTimes}
+                baphoTimes={baphoTimes}
               />
             )}
           </div>
@@ -144,6 +159,7 @@ interface continentInter {
   continent: heroArea;
   server: string;
   mbTime: mbTimeInter[];
+  baphoTimes: mbTimeInter[];
   serverOffset: number;
 }
 
@@ -151,33 +167,64 @@ function Continent({
   continent,
   server,
   mbTime,
+  baphoTimes,
   serverOffset,
 }: continentInter) {
   const [[daysMB, hoursMB, minutesMB, secondsMB], setCountDownDateMB]: any =
     useCountdown(Date.now(), continent.name, server, "miniBoss", serverOffset);
-  // const [
-  //   [daysBAPH, hoursBAPH, minutesBAPH, secondsBAPH],
-  //   setCountDownDateBaph,
-  // ]: any = useCountdown(new Date(), continent.name, server, "baphomet");
+
+  const [
+    [daysBAPH, hoursBAPH, minutesBAPH, secondsBAPH],
+    setCountDownDateBaph,
+  ]: any = useCountdown(
+    Date.now(),
+    continent.name,
+    server,
+    "baphomet",
+    serverOffset
+  );
 
   React.useEffect(() => {
-    //fetch baph and mb time
     for (let i = 0; i < mbTime.length; i++) {
       if (mbTime[i].continent === continent.name) {
         const newDate = new Date(
-          mbTime[i].nextYear,
-          mbTime[i].nextMonth,
-          mbTime[i].nextDay,
-          mbTime[i].nextHour,
-          mbTime[i].nextMinute,
-          0,
-          0
+          Date.UTC(
+            mbTime[i].nextYear,
+            mbTime[i].nextMonth,
+            mbTime[i].nextDay,
+            mbTime[i].nextHour,
+            mbTime[i].nextMinute,
+            0,
+            0
+          )
         );
+        console.log(newDate.toUTCString(), "returned mb times");
         setCountDownDateMB(newDate.getTime());
-        // setCountDownDateBaph(new Date().getTime());
       }
     }
   }, [mbTime]);
+
+  React.useEffect(() => {
+    for (let i = 0; i < baphoTimes.length; i++) {
+      if (baphoTimes[i].continent === continent.name) {
+        const newDateBaph = new Date(
+          Date.UTC(
+            baphoTimes[i].nextYear,
+            baphoTimes[i].nextMonth,
+            baphoTimes[i].nextDay,
+            baphoTimes[i].nextHour,
+            baphoTimes[i].nextMinute,
+            0,
+            0
+          )
+        );
+        console.log(newDateBaph.toUTCString());
+        setCountDownDateBaph(newDateBaph.getTime());
+
+        // console.log(new Date(newDateBaph.getTime() + serverOffset));
+      }
+    }
+  }, [baphoTimes]);
 
   return (
     <>
@@ -197,9 +244,8 @@ function Continent({
         </svg>
       </div>
       <div>
-        {continent.Baphomet}
-        {/* {continent.Baphomet} : {daysBAPH}, {hoursBAPH}, {minutesBAPH},
-        {secondsBAPH} */}
+        {continent.Baphomet} : {daysBAPH}, {hoursBAPH}, {minutesBAPH},
+        {secondsBAPH}
       </div>
       {continent.miniBosses.map((name) => (
         <div key={name}>

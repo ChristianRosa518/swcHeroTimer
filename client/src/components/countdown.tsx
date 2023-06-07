@@ -8,35 +8,28 @@ const useCountdown = (
   serverOffSet: number
 ) => {
   const [countDownDate, setCountDownDate] = useState<number>(targetDate);
-  const [localoffset, setLocaloffSet] = useState<number>(0);
+  const localoffset = new Date().getTimezoneOffset() * 60 * 1000;
   const [countDown, setCountDown] = useState(
-    countDownDate - (Date.now() + localoffset)
+    countDownDate - (new Date().getTime() + localoffset)
   );
 
   useEffect(() => {
-    if (new Date().getTimezoneOffset() * 60 * 1000 === serverOffSet) {
-      setLocaloffSet(new Date().getTimezoneOffset() * 60 * 1000);
-      console.log("Set offset");
-    } else {
-      setLocaloffSet(new Date().getTimezoneOffset() * 60 * 1000 + serverOffSet);
-      console.log("Set offset beta");
-    }
     const interval = setInterval(() => {
-      setCountDown(countDownDate - (Date.now() + localoffset));
+      setCountDown(countDownDate + localoffset - Date.now());
     }, 1000);
 
     return () => clearInterval(interval);
   }, [countDownDate]);
 
   useEffect(() => {
-    if (countDownDate - (Date.now() + localoffset) < 0) {
+    if (countDownDate + localoffset - Date.now() < 0) {
       console.log("Running Function");
       updateMBTime();
     }
   }, [countDown]);
 
   const updateMBTime = () => {
-    fetch(url + "/" + MonType + "/updateMiniBoss", {
+    fetch(url + "/" + MonType + "/update", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -48,12 +41,14 @@ const useCountdown = (
         console.log(data);
         console.log(`Updating ${MonType} Times`);
         const newDate = new Date(
-          data.years,
-          data.months,
-          data.days,
-          data.hours,
-          data.minutes,
-          data.seconds
+          Date.UTC(
+            data.years,
+            data.months,
+            data.days,
+            data.hours,
+            data.minutes,
+            data.seconds
+          )
         );
         setCountDownDate(newDate.getTime());
       })

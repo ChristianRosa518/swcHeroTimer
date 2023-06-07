@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const miniBoss = require("../models/mini");
+const baphomet = require("../models/baphomet");
 
 router.put("/update", async (req, res) => {
   const name = req.body.name;
-  const data = await miniBoss.findOne({ continent: name });
+  const data = await baphomet.findOne({ continent: name });
   //make new date to update time without large function
+
   const newDate = new Date(
     Date.UTC(
       data.nextYear,
@@ -18,8 +19,13 @@ router.put("/update", async (req, res) => {
     )
   );
 
+  // console.log("Utc Time", Date.now());
+  console.log(newDate.toUTCString(), "ji");
+  // console.log("updating bapho times");
+
   const updatedData = checkUpdate(newDate, data);
   res.send(updatedData);
+  console.log("");
 });
 
 const checkUpdate = (newDate, data) => {
@@ -29,10 +35,11 @@ const checkUpdate = (newDate, data) => {
   console.log("The Time : ", mathedDate);
 
   if (mathedDate < 0) {
-    newDate.setHours(newDate.getHours() + 3);
+    newDate.setDate(newDate.getDate() + 5);
     const [years, months, days, hours, minutes, seconds] =
       getReturnValues(newDate);
 
+    console.log(days);
     // update values
     data.nextYear = years;
     data.nextMonth = months;
@@ -41,8 +48,7 @@ const checkUpdate = (newDate, data) => {
     data.nextMinute = minutes;
 
     data.save();
-    console.log("times updated");
-    // console.log(`${data.continent} Miniboss times updated`);
+    console.log("bapho times updated");
     return {
       years: years,
       months: months,
@@ -91,16 +97,16 @@ const getReturnValues = (countDown) => {
 };
 
 router.get("/getTimes", async (req, res) => {
+  console.log("Bapho times");
   const serverOffset = new Date().getTimezoneOffset() * 60 * 1000;
 
-  console.log("Fetching MB times");
-  const data = await miniBoss.find();
+  const data = await baphomet.find();
   res.send({ data: data, serverOffset: serverOffset });
 });
 
 router.post("/newMB", (req, res) => {
   console.log(req.body);
-  const minibossTime = new miniBoss({
+  const Time = new baphomet({
     continent: req.body.continent,
     nextYear: req.body.nextYear,
     nextMonth: req.body.nextMonth,
@@ -109,9 +115,9 @@ router.post("/newMB", (req, res) => {
     nextMinute: req.body.nextMinute,
   });
 
-  minibossTime.save();
+  Time.save();
 
-  res.json(minibossTime);
+  res.json(Time);
 });
 
 module.exports = router;

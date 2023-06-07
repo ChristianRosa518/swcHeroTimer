@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const miniboss = require("./routes/miniboss");
+const baphomet = require("./routes/baphomet");
 
 const app = express();
 const corsOptions = {
@@ -23,6 +24,7 @@ app.get("/", (req, res) => {
 //trying to redeploy
 
 app.use("/miniboss", miniboss);
+app.use("/baphomet", baphomet);
 
 mongoose
   .connect(process.env.MONGODB_USER, {
