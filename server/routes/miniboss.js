@@ -31,30 +31,32 @@ const checkUpdate = (newDate, data, offset) => {
   console.log("The Time : ", mathedDate);
 
   if (mathedDate < 0) {
-    newDate.setHours(newDate.getHours() + 3);
-    const mathedDate = newDate.getTime() - Date.now() + offset;
-    console.log(mathedDate);
-    const [years, months, days, hours, minutes, seconds] =
-      getReturnValues(newDate);
+    while (mathedDate < 0) {
+      newDate.setHours(newDate.getHours() + 3);
+      const mathedDate = newDate.getTime() - Date.now() + offset;
+      console.log(mathedDate);
+      const [years, months, days, hours, minutes, seconds] =
+        getReturnValues(newDate);
 
-    // update values
-    data.nextYear = years;
-    data.nextMonth = months;
-    data.nextDay = days;
-    data.nextHour = hours;
-    data.nextMinute = minutes;
+      // update values
+      data.nextYear = years;
+      data.nextMonth = months;
+      data.nextDay = days;
+      data.nextHour = hours;
+      data.nextMinute = minutes;
 
-    data.save();
-    console.log("times updated");
-    // console.log(`${data.continent} Miniboss times updated`);
-    return {
-      years: years,
-      months: months,
-      days: days,
-      hours: hours,
-      minutes: minutes,
-      seconds: seconds,
-    };
+      data.save();
+      console.log("times updated");
+      // console.log(`${data.continent} Miniboss times updated`);
+      return {
+        years: years,
+        months: months,
+        days: days,
+        hours: hours,
+        minutes: minutes,
+        seconds: seconds,
+      };
+    }
   } else if (mathedDate > 0) {
     const [years, months, days, hours, minutes, seconds] =
       getReturnValues(newDate);

@@ -34,28 +34,30 @@ const checkUpdate = (newDate, data, offset) => {
   console.log("The Time : ", mathedDate);
 
   if (mathedDate < 0) {
-    newDate.setDate(newDate.getDate() + 5);
-    const [years, months, days, hours, minutes, seconds] =
-      getReturnValues(newDate);
+    while (mathedDate < 0) {
+      newDate.setDate(newDate.getDate() + 5);
+      const [years, months, days, hours, minutes, seconds] =
+        getReturnValues(newDate);
 
-    console.log(days);
-    // update values
-    data.nextYear = years;
-    data.nextMonth = months;
-    data.nextDay = days;
-    data.nextHour = hours;
-    data.nextMinute = minutes;
+      console.log(days);
+      // update values
+      data.nextYear = years;
+      data.nextMonth = months;
+      data.nextDay = days;
+      data.nextHour = hours;
+      data.nextMinute = minutes;
 
-    data.save();
-    console.log("bapho times updated");
-    return {
-      years: years,
-      months: months,
-      days: days,
-      hours: hours,
-      minutes: minutes,
-      seconds: seconds,
-    };
+      data.save();
+      console.log("bapho times updated");
+      return {
+        years: years,
+        months: months,
+        days: days,
+        hours: hours,
+        minutes: minutes,
+        seconds: seconds,
+      };
+    }
   } else if (mathedDate > 0) {
     const [years, months, days, hours, minutes, seconds] =
       getReturnValues(newDate);

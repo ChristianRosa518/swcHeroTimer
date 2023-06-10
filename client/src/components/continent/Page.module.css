@@ -3,24 +3,56 @@
 }
 
 .container {
-  width: 100%;
-  background-color: blue;
+  height: 100%;
+  width: 20%;
+  /* background-color: blue; */
 
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-direction: column;
+  gap: 5px;
+
+  overflow: hidden;
 }
 
-.selector {
-  height: 10vh;
-  width: 18%;
-  background-color: red;
-  border-radius: 10px 10px 0px 0px;
-  border-left: solid 2px black;
-  border-right: solid 2px black;
-  border-top: solid 2px black;
-
-  text-align: center;
+.navContainer {
+  height: 20%;
+  width: 100%;
   font-family: var(--body-fonts);
+  cursor: pointer;
+  transform: translateX(-8px);
+}
+
+.navBorder {
+  height: 100%;
+  width: 100%;
+  background-color: red;
+  clip-path: url(#myClip);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navBorderActive {
+  background-color: orange;
+  transform: translateX(8px);
+}
+
+.nav {
+  padding-left: 8px;
+  height: 98%;
+  width: 98%;
+  background-color: blue;
+  clip-path: url(#myClip);
+}
+
+.navActive {
+  padding-left: 8px;
+  /* can use if want to add active styles to main container. */
+}
+.selector {
+  text-align: center;
   color: white;
 }

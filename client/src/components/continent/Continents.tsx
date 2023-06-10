@@ -107,21 +107,23 @@ function Continents({ server }: ContinentsInter) {
   ];
 
   return (
-    <div>
-      <PageSelector setPage={setPage} continents={continents} />
-      <div className={styles.container}>
-        {continents.map((continent, index) => (
-          <div key={continent.name}>
-            {page === index && (
-              <Continent
-                continent={continent}
-                server={server}
-                mbTime={mbTimes}
-                baphoTimes={baphoTimes}
-              />
-            )}
-          </div>
-        ))}
+    <div className={styles.container}>
+      <div className={styles.pageSelectorContainer}>
+        <PageSelector setPage={setPage} continents={continents} pager={page} />
+        <div className={styles.timerContainer}>
+          {continents.map((continent, index) => (
+            <div className={styles.bossTimerContainer} key={continent.name}>
+              {page === index && (
+                <Continent
+                  continent={continent}
+                  server={server}
+                  mbTime={mbTimes}
+                  baphoTimes={baphoTimes}
+                />
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -130,21 +132,40 @@ function Continents({ server }: ContinentsInter) {
 interface pageSelectorInter {
   setPage: React.Dispatch<number>;
   continents: heroArea[];
+  pager: number;
 }
 
-function PageSelector({ setPage, continents }: pageSelectorInter) {
+function PageSelector({ setPage, continents, pager }: pageSelectorInter) {
   return (
     <>
       <div className={page.container}>
+        <svg height={0} width={0}>
+          <defs>
+            <clipPath id={"myClip"} clipPathUnits={"objectBoundingBox"}>
+              <path d="M0,0 H0.877 C0.877,0.036,0.898,0.107,0.92,0.107 V0.143 C1,0.321,1,0.679,0.92,0.857 V0.893 C0.898,0.893,0.877,0.929,0.877,1 H0M0,0 H0.877 C0.877,0.036,0.898,0.071,0.92,0.071 V0.179 C1,0.393,1,0.607,0.92,0.821 V0.929 C0.898,0.929,0.877,0.964,0.877,1 H0" />
+            </clipPath>
+          </defs>
+        </svg>
         {continents.map((continent, index) => (
           <div
-            className={page.selector}
+            className={page.navContainer}
             key={continent.name}
             onClick={() => setPage(index)}
           >
-            {continent.name}
-
-            {index + 1}
+            <div
+              className={`${page.navBorder} ${
+                index === pager ? `${page.navBorderActive}` : ``
+              }`}
+            >
+              <div
+                className={`${page.nav} ${
+                  index === pager ? `${page.navActive}` : ``
+                }`}
+              >
+                {continent.name}
+                {index + 1}
+              </div>
+            </div>
           </div>
         ))}
       </div>
@@ -212,28 +233,25 @@ function Continent({ continent, server, mbTime, baphoTimes }: continentInter) {
 
   return (
     <>
-      <div>Times only work for US East Taor Server</div>
-      <div>
-        Developed by Chedic, join our clan KyoshiWarriors for more resources!
-      </div>
-      <div>{continent.name}</div>
-      <div className={styles.nav}>
-        <svg height={120} width={300}>
-          <path
-            fill="#E8D8BD"
-            d={
-              "M 0 77 V 125 H 96 H 134 C 134 116 144 106 154 106 V 96 C 173 77 173 48 154 29 V 20 C 144 20 134 10 134 0 H 0 V 77"
-            }
-          ></path>
-        </svg>
-      </div>
-      <div>
-        {continent.Baphomet} : {daysBAPH}, {hoursBAPH}, {minutesBAPH},
-        {secondsBAPH}
+      <div className={styles.bossBox}>
+        {daysBAPH + hoursBAPH + minutesBAPH + secondsBAPH < 0 ? (
+          <div>{continent.Baphomet} : Loading...</div>
+        ) : (
+          <div>
+            {continent.Baphomet} : {daysBAPH}, {hoursBAPH}, {minutesBAPH},
+            {secondsBAPH}
+          </div>
+        )}
       </div>
       {continent.miniBosses.map((name) => (
-        <div key={name}>
-          {name} : {daysMB}, {hoursMB}, {minutesMB}, {secondsMB}
+        <div className={styles.bossBox} key={name}>
+          {daysMB + hoursMB + minutesMB + secondsMB < 0 ? (
+            <div>{name} : Loading...</div>
+          ) : (
+            <div>
+              {name} : {daysMB}, {hoursMB}, {minutesMB}, {secondsMB}
+            </div>
+          )}
         </div>
       ))}
       {}
