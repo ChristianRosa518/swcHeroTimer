@@ -153,6 +153,13 @@ function PageSelector({ setPage, continents, pager }: pageSelectorInter) {
             onClick={() => setPage(index)}
           >
             <div
+              className={`${
+                index === pager ? `${page.starCon}` : `${page.starConInvis}`
+              }`}
+            >
+              <div className={page.star}></div>
+            </div>
+            <div
               className={`${page.navBorder} ${
                 index === pager ? `${page.navBorderActive}` : ``
               }`}
