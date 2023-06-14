@@ -2,12 +2,32 @@ import React from "react";
 import styles from "./Continents.module.css";
 import page from "./Page.module.css";
 
+import rudelin from "../images/Rudelin.JPG";
+import rudelinWIDE from "../images/RudelinWIDE.JPG";
+
+import tesca from "../images/Tesca.JPG";
+import tescaWIDE from "../images/TescaWide.JPG";
+
+import ayah from "../images/Ayah.JPG";
+import ayahWIDE from "../images/AyahWIDE.JPG";
+
+import flurence from "../images/Fluerence.JPG";
+import flurenceWIDE from "../images/FluerenceWIDE.JPG";
+
+import rukurangma from "../images/Rukurangma.JPG";
+import rukurangmaWIDE from "../images/RukurangmaWIDE.JPG";
+
+import AbyssBapho from "../images/AbyssBapho.png";
+
 import { useCountdown } from "../countdown";
 
 interface heroArea {
   name: string;
+  zone: string;
   Baphomet: string;
   miniBosses: string[];
+  image: string;
+  imageWide: string;
 }
 
 interface ContinentsInter {
@@ -60,6 +80,7 @@ function Continents({ server }: ContinentsInter) {
   const continents: heroArea[] = [
     {
       name: "Rudelin",
+      zone: "Ela Hill",
       Baphomet: "Conqueror of Abyss Baphomet",
       miniBosses: [
         "Death Hunter Lich",
@@ -67,42 +88,56 @@ function Continents({ server }: ContinentsInter) {
         "Fickle Ukah",
         "Hissy Jakah",
       ],
+      image: rudelin,
+      imageWide: rudelinWIDE,
     },
     {
       name: "Tesca",
+      zone: "Sakal Desert",
       Baphomet: "Conqueror of Flame Baphomet",
       miniBosses: [
         "Dark Panolpy Giant Sandworm",
         "Pitchblack Scale Serpent",
         "Illusion Minion",
       ],
+      image: tesca,
+      imageWide: tescaWIDE,
     },
     {
       name: "Ayah",
+      zone: "Glowing Forest",
       Baphomet: "Conqueror of Storm Baphomet",
       miniBosses: [
         "Brilliant Glory Trian",
         "Light Wing Griffon",
         "Crying Fiend Warbear",
       ],
+      image: ayah,
+      imageWide: ayahWIDE,
     },
     {
       name: "Flurence",
+      zone: "Blue Crystal Plateau",
       Baphomet: "Conqueror of Cold Baphomet",
       miniBosses: [
         "Golden Mane Werewolf",
         "Golden Crystal Grooming",
         "Snow Mountain Master Yeti",
       ],
+      image: flurence,
+      imageWide: flurenceWIDE,
     },
     {
       name: "Rukurangma",
+      zone: "Ranite Canyon",
       Baphomet: "Conqueror of Radiance Baphomet",
       miniBosses: [
         "Burning Crimson Shadow Walker",
         "Red Heart Giant Rock Golem",
         "Mighty Golden Horn Dupa",
       ],
+      image: rukurangma,
+      imageWide: rukurangmaWIDE,
     },
   ];
 
@@ -144,6 +179,9 @@ function PageSelector({ setPage, continents, pager }: pageSelectorInter) {
             <clipPath id={"myClip"} clipPathUnits={"objectBoundingBox"}>
               <path d="M0,0 H0.877 C0.877,0.036,0.898,0.107,0.92,0.107 V0.143 C1,0.321,1,0.679,0.92,0.857 V0.893 C0.898,0.893,0.877,0.929,0.877,1 H0M0,0 H0.877 C0.877,0.036,0.898,0.071,0.92,0.071 V0.179 C1,0.393,1,0.607,0.92,0.821 V0.929 C0.898,0.929,0.877,0.964,0.877,1 H0" />
             </clipPath>
+            <clipPath id={"icon"} clipPathUnits={"objectBoundingBox"}>
+              <path d="M0.505,0 C0.465,0.038,0.384,0.077,0.303,0.077 C0.263,0.077,0.222,0.115,0.222,0.154 C0.141,0.154,0.061,0.269,0.081,0.346 C-0.02,0.423,-0.02,0.577,0.081,0.654 C0.061,0.731,0.141,0.846,0.222,0.846 C0.222,0.885,0.263,0.923,0.303,0.923 C0.384,0.923,0.465,0.962,0.505,1 C0.545,0.962,0.667,0.923,0.667,0.923 C0.747,0.923,0.788,0.885,0.788,0.846 C0.869,0.846,0.949,0.731,0.929,0.654 C1,0.577,1,0.423,0.929,0.346 C0.949,0.269,0.869,0.154,0.788,0.154 C0.788,0.115,0.747,0.077,0.707,0.077 C0.626,0.077,0.545,0.038,0.505,0" />
+            </clipPath>
           </defs>
         </svg>
         {continents.map((continent, index) => (
@@ -160,17 +198,33 @@ function PageSelector({ setPage, continents, pager }: pageSelectorInter) {
               <div className={page.star}></div>
             </div>
             <div
+              className={`${index === pager ? `${page.activeGlow}` : ``}`}
+            ></div>
+
+            <div
               className={`${page.navBorder} ${
                 index === pager ? `${page.navBorderActive}` : ``
               }`}
             >
+              <div className={page.navSecondBorder}></div>
               <div
                 className={`${page.nav} ${
                   index === pager ? `${page.navActive}` : ``
                 }`}
               >
-                {continent.name}
-                {index + 1}
+                <div className={page.backgroundLogo}>
+                  <div className={page.fade}></div>
+                  <img src={continent.imageWide}></img>
+                </div>
+                <div className={page.logoCon}>
+                  <div className={page.logo}>
+                    <img src={continent.image}></img>
+                  </div>
+                </div>
+                <div className={page.title}>
+                  <p>{continent.name}</p>
+                  <p>{continent.zone}</p>
+                </div>
               </div>
             </div>
           </div>
@@ -244,20 +298,28 @@ function Continent({ continent, server, mbTime, baphoTimes }: continentInter) {
         {daysBAPH + hoursBAPH + minutesBAPH + secondsBAPH < 0 ? (
           <div>{continent.Baphomet} : Loading...</div>
         ) : (
-          <div>
-            {continent.Baphomet} : {daysBAPH}, {hoursBAPH}, {minutesBAPH},
-            {secondsBAPH}
-          </div>
+          <>
+            <div className={styles.bossIcon}>
+              <img src={AbyssBapho} alt="" />
+            </div>
+            {continent.Baphomet} : {daysBAPH === 0 ? `` : `${daysBAPH}d,`}
+            {hoursBAPH === 0 ? `` : `${hoursBAPH}h, `}
+            {minutesBAPH === 0 ? `` : `${minutesBAPH}m, `}
+            {secondsBAPH === 0 ? `` : `${secondsBAPH}s`}
+          </>
         )}
       </div>
       {continent.miniBosses.map((name) => (
         <div className={styles.bossBox} key={name}>
           {daysMB + hoursMB + minutesMB + secondsMB < 0 ? (
-            <div>{name} : Loading...</div>
+            <>{name} : Loading...</>
           ) : (
-            <div>
-              {name} : {daysMB}, {hoursMB}, {minutesMB}, {secondsMB}
-            </div>
+            <>
+              {name} : {daysMB === 0 ? `` : `${daysMB}d,`}
+              {hoursMB === 0 ? `` : `${hoursMB}h, `}
+              {minutesMB === 0 ? `` : `${minutesMB}m, `}
+              {secondsMB === 0 ? `` : `${secondsMB}s`}
+            </>
           )}
         </div>
       ))}

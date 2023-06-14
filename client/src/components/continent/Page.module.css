@@ -7,28 +7,32 @@
   width: 20%;
   /* background-color: blue; */
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: column;
   gap: 5px;
 
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.container::-webkit-scrollbar {
+  display: none;
 }
 
 .navContainer {
   position: relative;
-  height: 20%;
+  height: 22%;
   width: 100%;
   font-family: var(--body-fonts);
   cursor: pointer;
   transform: translateX(-8px);
+
+  margin-bottom: 5px;
 }
 
 .navBorder {
+  position: relative;
   height: 100%;
   width: 100%;
-  background-color: red;
+  background-color: #c3c0af;
   clip-path: url(#myClip);
 
   display: flex;
@@ -36,22 +40,54 @@
   align-items: center;
 }
 
+.navSecondBorder {
+  position: absolute;
+  height: 98%;
+  width: 98.5%;
+  background-color: #e4c6b3;
+  clip-path: url(#myClip);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.activeGlow {
+  transform: translateX(8px);
+  position: absolute;
+  z-index: 4;
+  clip-path: url(#myClip);
+  height: 100%;
+  width: 100%;
+  background: rgb(0, 212, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 212, 255, 1) 2%,
+    rgba(2, 0, 36, 0) 10%,
+    rgba(2, 0, 36, 0) 80%,
+    rgba(0, 212, 255, 1) 100%
+  );
+}
+
 .navBorderActive {
-  background-color: orange;
+  background-color: #00d4ff;
   transform: translateX(8px);
 }
 
 .nav {
   padding-left: 8px;
-  height: 98%;
-  width: 98%;
+  height: 97%;
+  width: 97%;
   background-color: blue;
   clip-path: url(#myClip);
+
+  display: flex;
 }
 
 .navActive {
   padding-left: 8px;
   /* can use if want to add active styles to main container. */
+  z-index: 4;
 }
 
 .starCon {
@@ -72,7 +108,7 @@
 .star {
   height: 12px;
   width: 12px;
-  background-color: orange;
+  background-color: #00d4ff;
   clip-path: polygon(
     50% 0%,
     61% 35%,
@@ -89,4 +125,70 @@
 .selector {
   text-align: center;
   color: white;
+}
+
+.logoCon {
+  height: 100%;
+  width: 35%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+
+  z-index: 3;
+}
+
+.backgroundLogo {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+  transform: translateX(-8px);
+}
+
+.backgroundLogo img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.fade {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgb(51, 50, 50);
+  opacity: 0.35;
+  z-index: 2;
+}
+
+.logo {
+  height: 65%;
+  width: 95%;
+  background-color: red;
+  clip-path: url(#icon);
+}
+.logo img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.title {
+  height: 100%;
+  width: 65%;
+
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  flex-direction: column;
+
+  z-index: 3;
+}
+
+.title p {
+  color: white;
+  align-items: baseline;
+  text-align: left;
 }

@@ -2,26 +2,29 @@
   width: 100%;
   height: 100svh;
 
-  background-color: yellow;
+  background-color: #625241;
+  background-image: url("../images/background.jpg");
+  background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .pageSelectorContainer {
-  height: 80%;
-  width: 80%;
+  height: 70%;
+  width: 70%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: green;
+  background-color: #eee5d9;
+
+  overflow: hidden;
 }
 
 .timerContainer {
   position: relative;
   width: 80%;
   height: 100%;
-  background-color: orange;
 
   display: flex;
   justify-content: center;
@@ -36,7 +39,10 @@
 
   overflow-y: auto;
   gap: 10px;
-  background-color: gray;
+}
+
+.bossTimerContainer::-webkit-scrollbar {
+  display: none;
 }
 
 .bossBox {
@@ -46,5 +52,34 @@
   border-radius: 5px;
   z-index: 10;
   margin: 8px;
-  background-color: red;
+  background: rgb(113, 102, 95);
+  background: linear-gradient(
+    90deg,
+    rgba(113, 102, 95, 1) 0%,
+    rgba(227, 215, 203, 1) 20%
+  );
+
+  border: 2px solid whitesmoke;
+
+  display: flex;
+}
+
+.bossIcon {
+  height: 100%;
+  width: 20%;
+  background: rgb(113, 102, 95);
+  background: radial-gradient(
+    circle,
+    rgba(113, 102, 95, 1) 32%,
+    rgba(227, 215, 203, 0) 81%
+  );
+}
+
+.bossIcon img {
+  object-fit: none;
+  height: 100%;
+  width: 100%;
+
+  zoom: 70%;
+  object-position: 0%;
 }
