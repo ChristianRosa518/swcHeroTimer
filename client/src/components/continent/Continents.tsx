@@ -6,7 +6,7 @@ import rudelin from "../images/Rudelin.JPG";
 import rudelinWIDE from "../images/RudelinWIDE.JPG";
 
 import tesca from "../images/Tesca.JPG";
-import tescaWIDE from "../images/TescaWide.JPG";
+import tescaWIDE from "../images/TescaWIDE.JPG";
 
 import ayah from "../images/Ayah.JPG";
 import ayahWIDE from "../images/AyahWIDE.JPG";

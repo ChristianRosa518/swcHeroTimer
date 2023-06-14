@@ -19,6 +19,9 @@
   background-color: #eee5d9;
 
   overflow: hidden;
+
+  border: #625241 5px solid;
+  border-radius: 5px;
 }
 
 .timerContainer {
