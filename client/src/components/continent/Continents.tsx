@@ -17,8 +17,6 @@ import flurenceWIDE from "../images/FluerenceWIDE.JPG";
 import rukurangma from "../images/Rukurangma.JPG";
 import rukurangmaWIDE from "../images/RukurangmaWIDE.JPG";
 
-import AbyssBapho from "../images/AbyssBapho.png";
-
 import DeathHunterLich from "../images/BOSSES/Rudelin/DeathHunterLich.png";
 import NightMareRuinGuardian from "../images/BOSSES/Rudelin/NightmareRuinsGuardian.png";
 import FickleUkah from "../images/BOSSES/Rudelin/FickleUkah.png";
