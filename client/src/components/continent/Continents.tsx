@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Continents.module.css";
 import page from "./Page.module.css";
 
+// IMAGES
 import rudelin from "../images/Rudelin.JPG";
 import rudelinWIDE from "../images/RudelinWIDE.JPG";
 
@@ -22,6 +23,8 @@ import NightMareRuinGuardian from "../images/BOSSES/Rudelin/NightmareRuinsGuardi
 import FickleUkah from "../images/BOSSES/Rudelin/FickleUkah.png";
 import HissyJakah from "../images/BOSSES/Rudelin/HissyJakah.png";
 import RudelinBapho from "../images/BOSSES/Rudelin/RudelinBapho.png";
+
+// IMAGES END
 
 import { useCountdown } from "../countdown";
 
