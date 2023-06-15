@@ -19,6 +19,12 @@ import rukurangmaWIDE from "../images/RukurangmaWIDE.JPG";
 
 import AbyssBapho from "../images/AbyssBapho.png";
 
+import DeathHunterLich from "../images/BOSSES/Rudelin/DeathHunterLich.png";
+import NightMareRuinGuardian from "../images/BOSSES/Rudelin/NightmareRuinsGuardian.png";
+import FickleUkah from "../images/BOSSES/Rudelin/FickleUkah.png";
+import HissyJakah from "../images/BOSSES/Rudelin/HissyJakah.png";
+import RudelinBapho from "../images/BOSSES/Rudelin/RudelinBapho.png";
+
 import { useCountdown } from "../countdown";
 
 interface heroArea {
@@ -28,6 +34,8 @@ interface heroArea {
   miniBosses: string[];
   image: string;
   imageWide: string;
+  baphoImage?: string;
+  minibossesIMG: string[];
 }
 
 interface ContinentsInter {
@@ -90,6 +98,13 @@ function Continents({ server }: ContinentsInter) {
       ],
       image: rudelin,
       imageWide: rudelinWIDE,
+      baphoImage: RudelinBapho,
+      minibossesIMG: [
+        DeathHunterLich,
+        NightMareRuinGuardian,
+        FickleUkah,
+        HissyJakah,
+      ],
     },
     {
       name: "Tesca",
@@ -102,6 +117,8 @@ function Continents({ server }: ContinentsInter) {
       ],
       image: tesca,
       imageWide: tescaWIDE,
+      baphoImage: "",
+      minibossesIMG: [],
     },
     {
       name: "Ayah",
@@ -114,6 +131,8 @@ function Continents({ server }: ContinentsInter) {
       ],
       image: ayah,
       imageWide: ayahWIDE,
+      baphoImage: "",
+      minibossesIMG: [],
     },
     {
       name: "Flurence",
@@ -126,6 +145,8 @@ function Continents({ server }: ContinentsInter) {
       ],
       image: flurence,
       imageWide: flurenceWIDE,
+      baphoImage: "",
+      minibossesIMG: [],
     },
     {
       name: "Rukurangma",
@@ -138,6 +159,8 @@ function Continents({ server }: ContinentsInter) {
       ],
       image: rukurangma,
       imageWide: rukurangmaWIDE,
+      baphoImage: "",
+      minibossesIMG: [],
     },
   ];
 
@@ -182,6 +205,9 @@ function PageSelector({ setPage, continents, pager }: pageSelectorInter) {
             <clipPath id={"icon"} clipPathUnits={"objectBoundingBox"}>
               <path d="M0.505,0 C0.465,0.038,0.384,0.077,0.303,0.077 C0.263,0.077,0.222,0.115,0.222,0.154 C0.141,0.154,0.061,0.269,0.081,0.346 C-0.02,0.423,-0.02,0.577,0.081,0.654 C0.061,0.731,0.141,0.846,0.222,0.846 C0.222,0.885,0.263,0.923,0.303,0.923 C0.384,0.923,0.465,0.962,0.505,1 C0.545,0.962,0.667,0.923,0.667,0.923 C0.747,0.923,0.788,0.885,0.788,0.846 C0.869,0.846,0.949,0.731,0.929,0.654 C1,0.577,1,0.423,0.929,0.346 C0.949,0.269,0.869,0.154,0.788,0.154 C0.788,0.115,0.747,0.077,0.707,0.077 C0.626,0.077,0.545,0.038,0.505,0" />
             </clipPath>
+            <clipPath id={"star"} clipPathUnits={"objectBoundingBox"}>
+              <path d="M0,0.5 C0.2,0.5,0.5,0.3,0.5,0 C0.5,0.3,0.8,0.5,1,0.5 C0.8,0.5,0.5,0.8,0.5,1 C0.5,0.8,0.2,0.5,0,0.5" />
+            </clipPath>
           </defs>
         </svg>
         {continents.map((continent, index) => (
@@ -195,7 +221,10 @@ function PageSelector({ setPage, continents, pager }: pageSelectorInter) {
                 index === pager ? `${page.starCon}` : `${page.starConInvis}`
               }`}
             >
-              <div className={page.star}></div>
+              <div className={page.starBorder}>
+                <div className={page.star}></div>
+                <div className={page.starShadow}></div>
+              </div>
             </div>
             <div
               className={`${index === pager ? `${page.activeGlow}` : ``}`}
@@ -300,7 +329,7 @@ function Continent({ continent, server, mbTime, baphoTimes }: continentInter) {
         ) : (
           <>
             <div className={styles.bossIcon}>
-              <img src={AbyssBapho} alt="" />
+              <img src={continent.baphoImage} alt="" />
             </div>
             {continent.Baphomet} : {daysBAPH === 0 ? `` : `${daysBAPH}d,`}
             {hoursBAPH === 0 ? `` : `${hoursBAPH}h, `}
@@ -309,12 +338,15 @@ function Continent({ continent, server, mbTime, baphoTimes }: continentInter) {
           </>
         )}
       </div>
-      {continent.miniBosses.map((name) => (
+      {continent.miniBosses.map((name, index) => (
         <div className={styles.bossBox} key={name}>
           {daysMB + hoursMB + minutesMB + secondsMB < 0 ? (
             <>{name} : Loading...</>
           ) : (
             <>
+              <div className={styles.bossIcon}>
+                <img src={continent.minibossesIMG[index]} alt="" />
+              </div>
               {name} : {daysMB === 0 ? `` : `${daysMB}d,`}
               {hoursMB === 0 ? `` : `${hoursMB}h, `}
               {minutesMB === 0 ? `` : `${minutesMB}m, `}

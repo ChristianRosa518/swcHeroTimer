@@ -4,7 +4,7 @@
 
 .container {
   height: 100%;
-  width: 20%;
+  width: 30%;
   /* background-color: blue; */
 
   gap: 5px;
@@ -20,7 +20,7 @@
 .navContainer {
   position: relative;
   height: 22%;
-  width: 100%;
+  width: 80%;
   font-family: var(--body-fonts);
   cursor: pointer;
   transform: translateX(-8px);
@@ -105,23 +105,32 @@
   display: none;
 }
 
-.star {
-  height: 12px;
-  width: 12px;
-  background-color: #00d4ff;
-  clip-path: polygon(
-    50% 0%,
-    61% 35%,
-    98% 35%,
-    68% 57%,
-    79% 91%,
-    50% 70%,
-    21% 91%,
-    32% 57%,
-    2% 35%,
-    39% 35%
+.starBorder {
+  position: relative;
+  height: 20%;
+  width: 10%;
+  transform: translateX(8px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* clip-path: url(#star); */
+
+  background: rgb(73, 255, 250);
+  background: radial-gradient(
+    circle,
+    rgba(73, 255, 250, 1) 20%,
+    rgba(113, 102, 95, 0) 68%
   );
 }
+.star {
+  height: 80%;
+  width: 80%;
+  background-color: #00d4ff;
+  background-color: white;
+  clip-path: url(#star);
+}
+
 .selector {
   text-align: center;
   color: white;
