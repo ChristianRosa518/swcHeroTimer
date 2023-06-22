@@ -5,24 +5,39 @@ import page from "./Page.module.css";
 // IMAGES
 import rudelin from "../images/Rudelin.JPG";
 import rudelinWIDE from "../images/RudelinWIDE.JPG";
-
-import tesca from "../images/Tesca.JPG";
-import tescaWIDE from "../images/TescaWIDE.JPG";
-
-import ayah from "../images/Ayah.JPG";
-import ayahWIDE from "../images/AyahWIDE.JPG";
-
-import flurence from "../images/Fluerence.JPG";
-import flurenceWIDE from "../images/FluerenceWIDE.JPG";
-
-import rukurangma from "../images/Rukurangma.JPG";
-import rukurangmaWIDE from "../images/RukurangmaWIDE.JPG";
-
 import DeathHunterLich from "../images/BOSSES/Rudelin/DeathHunterLich.png";
 import NightMareRuinGuardian from "../images/BOSSES/Rudelin/NightmareRuinsGuardian.png";
 import FickleUkah from "../images/BOSSES/Rudelin/FickleUkah.png";
 import HissyJakah from "../images/BOSSES/Rudelin/HissyJakah.png";
 import RudelinBapho from "../images/BOSSES/Rudelin/RudelinBapho.png";
+
+import tesca from "../images/Tesca.JPG";
+import tescaWIDE from "../images/TescaWIDE.JPG";
+import DarkPanolpy from "../images/BOSSES/Tesca/DarkPanoplyGiantSandworm.png";
+import PitchblackScale from "../images/BOSSES/Tesca/PitchblackScaleSerp.png";
+import IllusionMin from "../images/BOSSES/Tesca/IllusionMin.png";
+import TescaBapho from "../images/BOSSES/Tesca/TescaBapho.png";
+
+import ayah from "../images/Ayah.JPG";
+import ayahWIDE from "../images/AyahWIDE.JPG";
+import AyahBaph from "../images/BOSSES/Ayah/AyahBapho.png";
+import BrilliantGlory from "../images/BOSSES/Ayah/BrilliantGloryTrian.png";
+import LightWing from "../images/BOSSES/Ayah/LightWing.png";
+import CryingFiend from "../images/BOSSES/Ayah/CryingFiendWarbear.png";
+
+import flurence from "../images/Fluerence.JPG";
+import flurenceWIDE from "../images/FluerenceWIDE.JPG";
+import FluBapho from "../images/BOSSES/Flurence/FluBapho.png";
+import GoldenManeWereWolf from "../images/BOSSES/Flurence/GoldenManeWerewolf.png";
+import GoldenManeGrooming from "../images/BOSSES/Flurence/GoldenCrystalGrooming.png";
+import SnowMountainMasterYeti from "../images/BOSSES/Flurence/SnowMountainMasterYeti.png";
+
+import rukurangma from "../images/Rukurangma.JPG";
+import rukurangmaWIDE from "../images/RukurangmaWIDE.JPG";
+import RukuBapho from "../images/BOSSES/Rukurangma/RukuBapho.png";
+import BurningCrimson from "../images/BOSSES/Rukurangma/BurningCrimsonShadowWalker.png";
+import RedHeartGiant from "../images/BOSSES/Rukurangma/RedHeartGiantRockGolem.png";
+import MightyGoldenHorn from "../images/BOSSES/Rukurangma/MightyGoldenHornDupa.png";
 
 // IMAGES END
 
@@ -118,8 +133,8 @@ function Continents({ server }: ContinentsInter) {
       ],
       image: tesca,
       imageWide: tescaWIDE,
-      baphoImage: "",
-      minibossesIMG: [],
+      baphoImage: TescaBapho,
+      minibossesIMG: [DarkPanolpy, PitchblackScale, IllusionMin],
     },
     {
       name: "Ayah",
@@ -132,8 +147,8 @@ function Continents({ server }: ContinentsInter) {
       ],
       image: ayah,
       imageWide: ayahWIDE,
-      baphoImage: "",
-      minibossesIMG: [],
+      baphoImage: AyahBaph,
+      minibossesIMG: [BrilliantGlory, LightWing, CryingFiend],
     },
     {
       name: "Flurence",
@@ -146,8 +161,12 @@ function Continents({ server }: ContinentsInter) {
       ],
       image: flurence,
       imageWide: flurenceWIDE,
-      baphoImage: "",
-      minibossesIMG: [],
+      baphoImage: FluBapho,
+      minibossesIMG: [
+        GoldenManeWereWolf,
+        GoldenManeGrooming,
+        SnowMountainMasterYeti,
+      ],
     },
     {
       name: "Rukurangma",
@@ -160,8 +179,8 @@ function Continents({ server }: ContinentsInter) {
       ],
       image: rukurangma,
       imageWide: rukurangmaWIDE,
-      baphoImage: "",
-      minibossesIMG: [],
+      baphoImage: RukuBapho,
+      minibossesIMG: [BurningCrimson, RedHeartGiant, MightyGoldenHorn],
     },
   ];
 
