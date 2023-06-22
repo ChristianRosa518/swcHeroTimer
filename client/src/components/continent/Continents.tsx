@@ -44,6 +44,7 @@ import MightyGoldenHorn from "../images/BOSSES/Rukurangma/MightyGoldenHornDupa.p
 import { useCountdown } from "../countdown";
 
 interface heroArea {
+  //  test
   name: string;
   zone: string;
   Baphomet: string;
