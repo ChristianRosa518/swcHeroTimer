@@ -25,6 +25,15 @@ const BaphometSchema = new Schema({
   nextSecond: {
     type: Number,
   },
+  hoursA: {
+    type: Number,
+  },
+  hoursB: {
+    type: Number,
+  },
+  hoursToggle: {
+    type: Boolean,
+  },
 });
 
 const Baphomet = mongoose.model("baphomet", BaphometSchema);

@@ -27,35 +27,37 @@ router.put("/update", async (req, res) => {
 const checkUpdate = (newDate, data, offset) => {
   console.log("Server off set", offset);
 
-  const mathedDate = newDate.getTime() - Date.now() + offset;
+  var mathedDate = newDate.getTime() - Date.now() + offset;
   console.log("The Time : ", mathedDate);
 
   if (mathedDate < 0) {
     while (mathedDate < 0) {
       newDate.setHours(newDate.getHours() + 3);
-      const mathedDate = newDate.getTime() - Date.now() + offset;
+      mathedDate = newDate.getTime() - Date.now() + offset;
       console.log(mathedDate);
       const [years, months, days, hours, minutes, seconds] =
         getReturnValues(newDate);
 
-      // update values
+      // update values to db
       data.nextYear = years;
       data.nextMonth = months;
       data.nextDay = days;
       data.nextHour = hours;
       data.nextMinute = minutes;
 
-      data.save();
       console.log("times updated");
       // console.log(`${data.continent} Miniboss times updated`);
-      return {
-        years: years,
-        months: months,
-        days: days,
-        hours: hours,
-        minutes: minutes,
-        seconds: seconds,
-      };
+      if (mathedDate > 0) {
+        data.save();
+        return {
+          years: years,
+          months: months,
+          days: days,
+          hours: hours,
+          minutes: minutes,
+          seconds: seconds,
+        };
+      }
     }
   } else if (mathedDate > 0) {
     const [years, months, days, hours, minutes, seconds] =
